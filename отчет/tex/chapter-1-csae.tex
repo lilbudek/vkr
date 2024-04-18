@@ -1,0 +1,65 @@
+\chapter{название}
+
+\section{Первый раздел главы 1}
+
+Пример использования minted для оформления кода.
+\begin{code}
+\captionof{listing}{Сложение двух массивов параллельно десятью потоками (пример из https://ru.wikipedia.org/wiki/OpenMP)}
+\label{code:pi-example}
+\begin{minted}[mathescape,linenos,frame=lines,breaklines]{C}
+#include <stdio.h>
+}
+\end{minted}
+\end{code}
+
+\section{Второй раздел главы 1}
+Ниже представлен многоуровневый список:
+\begin{enumerate}
+ \item 1
+ \begin{enumerate}
+ \item 2
+ \item 3
+\end{enumerate}
+\item 4
+ \begin{enumerate}
+ \item 5
+  \begin{enumerate}
+ \item 6
+ \item 7
+\end{enumerate}
+ \item 8
+\end{enumerate}
+\item 9
+\end{enumerate}
+
+\subsection{Пример подраздела}
+Текст из первого подразделя для проверики отступа между абзацами. Текст из первого подразделя для проверики отступа между абзацами. Текст из первого подразделя для проверики отступа между абзацами.
+
+Текст из первого подразделя для проверики отступа между абзацами. Текст из первого подразделя для проверики отступа между абзацами. Текст из первого подразделя для проверики отступа между абзацами.
+
+\begin{table}[H]
+\caption{\label{t1}Системные требования}
+\begin{tabular}{|p{3 cm}|p{3 cm}|p{3 cm}|p{5 cm}|}
+\hline
+Минимальные требования & 1 & 2 & 3 \\ \hline
+Версия операционной системы & 1 & 2 & 3 \\ \hline
+Процессор & 1 & 2 & 3 \\ \hline
+Графический API & 1 & 2 & 3 \\ \hline
+\end{tabular}
+\end{table}
+
+Пример ссылки на рисунок в документе~\ref{fig:example01}.
+\begin{figure}[h]
+    \centering
+    %\includegraphics[width=1.0\textwidth]{../images/screen.png}
+    \caption{Пример рисунка}
+    \label{fig:example01}
+\end{figure}
+
+Пример ссылки на рисунок в документе~\ref{fig:example04}.
+\begin{figure}[h]
+    \centering
+    %\includegraphics[width=1.0\textwidth]{../images/screen2.png}
+    \caption{Пример рисунка}
+    \label{fig:example04}
+\end{figure}

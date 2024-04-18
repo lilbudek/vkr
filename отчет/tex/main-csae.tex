@@ -1,0 +1,78 @@
+\documentclass[14pt, oneside]{altsu-bachelor}
+
+\title{Программный генератор сигналов на основе микроконтроллера STM32F103}
+\author{Д.\,С.~Вебер}
+\groupnumber{506}
+\GradebookNumber{294}
+\supervisor{П.\,Н.~Уланов}
+\supervisordegree{ст. преп.}
+\ministry{Министерство науки и высшего образования}
+\country{Российской Федерации}
+\fulluniversityname{ФГБОУ ВО Алтайский государственный университет}
+\institute{Институт цифровых технологий, электроники и физики}
+\department{Кафедра вычислительной техники и электроники}
+\departmentchief{В.\,В.~Пашнев}
+\departmentchiefdegree{к.ф.-м.н., доцент}
+\shortdepartment{ВТиЭ}
+\ChairmanOfTheStateCertificationCommission{С.\,П.~Пронин}
+\ChairmanOfTheStateCertificationCommissiondegree{д.т.н., проф.}
+\NormController{А.\,В.~Калачёв}
+\NormControllerdegree{к.ф.-м.н., доцент}
+\Consultant{}
+\Consultantdegree{}
+\UDC{004.94}
+\docname{БР 09.03.01}
+\abstractRU
+{
+В первой главе были рассмотрены семейства микроконтроллеров, различные среды разработки и изучены методы генерации сигналов.
+
+Во второй главе был спроектирован генератор. Создана схема электрическая принципиальная, проведено моделирование методов генерации, разработан алгоритм работы.
+
+В третьей главе была произведена сборка макета, написана и протестирована результирующая программа. 
+}
+\abstractEN{
+In the first part, families of microcontrollers, various development environments were considered and signal generation methods were studied.
+
+In the second part, a generator was designed. An electrical schematic diagram has been created, generation methods have been modeled, and an algorithm has been developed.
+
+In the third part, the layout was assembled, the resulting program was written and tested.
+}
+\keysRU{генератор сигналов, микроконтроллер}
+\keysEN{signal generator, microcontroller}
+
+\date{\the\year}
+
+% Подключение файлов с библиотекой.
+\addbibresource{graduate-students.bib}
+
+\begin{document}
+\maketitle
+
+\setcounter{page}{2}
+\makeabstract
+\tableofcontents
+
+\input{chapter-intro-csae}
+\input{chapter-1-csae}
+\input{chapter-2-csae}
+\input{chapter-3-csae}
+
+\chapter*{Заключение}
+\addcontentsline{toc}{chapter}{Заключение}
+
+\begin{enumerate}
+\item Пример ссылки на литературу~\cite{wikiRUBitbucket}.
+\item Пример ссылки на литературу~\cite{wikiRUIdSoftware}.
+\item Пример ссылки на литературу~\cite{wikiRUGitHub}.
+\end{enumerate}
+
+Всего рисунков в документе~\totalfigures.
+\newpage
+\addcontentsline{toc}{chapter}{Список использованной литературы}
+\printbibliography[title={Список использованной литературы}]
+
+\input{chapter-appendix-csae}
+
+\makelastpage
+\end{document}
+

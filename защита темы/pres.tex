@@ -1,0 +1,67 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[T2A]{fontenc}
+\usepackage{diagbox}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\setbeamertemplate{navigation symbols}{} %отключение значков
+\setbeamertemplate{caption}[numbered]
+\usetheme{Warsaw}
+\setbeamertemplate{footline}{%
+    \hspace{0.94\paperwidth}%
+    \usebeamerfont{title in head/foot}%
+    \insertframenumber\,/\,\inserttotalframenumber%
+}
+\newcommand{\pdiff}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\op}[1]{\mathop{\mathrm{#1}}}
+\graphicspath{{pictures/}}
+\begin{document}
+
+\title{Создание программного генератора сигналов разной формы на микроконтроллере STM32.}
+\author{Студент гр. 506: Вебер Д.С.\\Научный руководитель:  ст.пр. Уланов П.Н.}
+\date{2023}
+\institute{Алтайский государственный университет}
+
+
+\frame{\titlepage}
+
+\begin{frame}{Цель и задачи}
+  \textbf{Цель работы:} разработка программы для генерации сигналов на микроконтроллере STM32.
+
+  \textbf{Задачи:} 
+  \begin{enumerate}
+  \item Исследовать существующие способы программной генерации сигналов.
+  \item Выбрать микроконтроллер для реализации. 
+  \item Выбрать среду разработки. 
+  \item Написать программу.
+  \item Провести проверку работоспособности.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Микроконтроллеры}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline 
+\diagbox[width=10em]{Параметр}{МК} & F103RCT6 & F302CBT6 & F373CCT6 & G431CBT6 \\ 
+\hline 
+Память программ & 256 Кбайт & 128 Кбайт & 256 Кбайт & 128 Кбайт \\ 
+\hline 
+ОЗУ & 48 Кбайт & 32 Кбайт & 32 Кбайт & 32 Кбайт \\ 
+\hline 
+Тактовая частота & 72 МГц & 72 МГц & 72 МГц & 170 МГц \\ 
+\hline 
+Кол-во вх/вых & 51 & 37 & 36 & 38 \\ 
+\hline 
+ЦАП & 2х12б & 1х12б & 3х12б & 4х12б \\
+\hline 
+\end{tabular}
+\end{center} 
+
+\end{frame}
+
+\end{document}
