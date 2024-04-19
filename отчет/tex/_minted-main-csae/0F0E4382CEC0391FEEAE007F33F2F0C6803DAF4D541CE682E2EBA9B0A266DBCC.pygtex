@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+[kenny@desktop dds]\PYGZbs{}\PYGZdl{} gcc dds.c \PYGZhy{}o dds \PYGZam{}\PYGZam{} ./dds
+0 0x7F
+1 0x82
+...
+254 0x79
+255 0x7C
+\end{Verbatim}
