@@ -6,16 +6,21 @@
 \begin{code}
 \captionof{listing}{Метод DDS.}
 \begin{minted}[mathescape,linenos,frame=lines,breaklines]{text}
+int main() {
   uint16_t p_acc, p_step;
   uint8_t addr = 0; // адрес ячейки
 
   p_acc = 0;    // аккумулятор фазы
-  p_step = 256; // код частоты
+  p_step = 128; // код частоты
 
-  while (1) {
+  while(1)
+  {
     addr = p_acc >> 8; // выделение старшей части аккумулятора фазы
     p_acc += p_step;   // шаг
-    printf("%d 0x%X\n", addr, lut[addr]); // вывод отсчёта
+    printf("%d 0x%X\n", addr, sinus[addr]); // вывод отсчёта
+  }
+
+  return 0;
 }
 \end{minted}
 \end{code}
@@ -24,59 +29,37 @@
 	
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{../image/dds_block.pdf}
+    \includegraphics[width=0.45\textwidth]{../image/dds_block.pdf}
     \caption{Алгоритм метода DDS.}
 \end{figure}
 	
 	Код частоты задаёт выходную частоту генератора. При значении 256 вывод будет следующий:
 	
-\begin{code}
-\captionof{listing}{Формирование отсчётов при коде частоты 256.}
-\begin{minted}[mathescape,linenos,frame=lines,breaklines]{text}
-[kenny@desktop dds]\$ gcc dds.c -o dds && ./dds
-0 0x7F
-1 0x82
-...
-254 0x79
-255 0x7C
-\end{minted}
-\end{code}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{../image/dds256.png}
+    \caption{Формирование отсчётов при коде частоты 256.}
+\end{figure}
 	
 	Увеличим код частоты в два раза и получим следующее:
 
-\begin{code}
-\captionof{listing}{Формирование отсчётов при коде частоты 512.}
-\begin{minted}[mathescape,linenos,frame=lines,breaklines]{text}
-[kenny@desktop dds]\$ gcc dds.c -o dds && ./dds
-0 0x7F
-2 0x85
-...
-252 0x73
-254 0x79
-\end{minted}
-\end{code}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{../image/dds512.png}
+    \caption{Формирование отсчётов при коде частоты 512.}
+\end{figure}
 
 	Как можно заметить отсчёты стали формироваться через один, соответственно частота вырастит в два раза. Теперь уменьшим частоту в два раза выставив код частоты 128.
 
-\begin{code}
-\captionof{listing}{Формирование отсчётов при коде частоты 128.}
-\begin{minted}[mathescape,linenos,frame=lines,breaklines]{text}
-[kenny@desktop dds]\$ gcc dds.c -o dds && ./dds
-0 0x7F
-0 0x7F
-1 0x82
-1 0x82
-...
-254 0x79
-254 0x79
-255 0x7C
-255 0x7C
-\end{minted}
-\end{code}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{../image/dds128.png}
+    \caption{Формирование отсчётов при коде частоты 128.}
+\end{figure}
 
 	Программа стала выводить каждый отсчёт по два раза тем самым, понизив частоту.
 	
-	В данном виде модуляции код частоты просто абстрактное число, которое добавляется к аккумулятору фазы и узнать реальную частоту проблематично. Результат синтеза стоит проверить опытным путём на микроконтроллере.
+	В данном виде модуляции код частоты просто абстрактное число, которое добавляется к аккумулятору фазы и узнать реальную частоту проблематично. Результат синтеза будет проверен опытным путём на микроконтроллере.
 
 \section{Алгоритм работы}
 
