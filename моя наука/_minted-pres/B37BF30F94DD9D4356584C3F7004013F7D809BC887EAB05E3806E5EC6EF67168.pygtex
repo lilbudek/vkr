@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}GPIOA);
+gpio\PYGZus{}set\PYGZus{}mode(GPIOA, GPIO\PYGZus{}MODE\PYGZus{}OUTPUT\PYGZus{}2\PYGZus{}MHZ,
+	GPIO\PYGZus{}CNF\PYGZus{}OUTPUT\PYGZus{}ALTFN\PYGZus{}PUSHPULL, GPIO5);
+rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}DAC);
+dac\PYGZus{}enable(CHANNEL\PYGZus{}2);
+\end{Verbatim}
