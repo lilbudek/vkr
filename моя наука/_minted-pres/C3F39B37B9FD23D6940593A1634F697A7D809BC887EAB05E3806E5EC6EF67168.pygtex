@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+[kenny@desktop dds] gcc dds.c \PYGZhy{}o dds \PYGZam{}\PYGZam{} ./dds
+0 0x7F
+0 0x7F
+1 0x82
+1 0x82
+...
+254 0x79
+254 0x79
+255 0x7C
+255 0x7C
+\end{Verbatim}

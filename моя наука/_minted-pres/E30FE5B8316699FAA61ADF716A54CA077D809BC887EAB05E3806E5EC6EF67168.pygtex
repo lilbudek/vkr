@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+for (int i = 0; i \PYGZlt{} 256; i++)
+\PYGZob{}
+	dac\PYGZus{}load\PYGZus{}data\PYGZus{}buffer\PYGZus{}single(lut[i], RIGHT12, CHANNEL\PYGZus{}2);
+\PYGZcb{}
+\end{Verbatim}

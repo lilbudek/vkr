@@ -111,7 +111,7 @@ dac_enable(CHANNEL_2);
 	breaklines
 	]
 	{text}
-for (int i = 0; i < 256; j++)
+for (int i = 0; i < 256; i++)
 {
 	dac_load_data_buffer_single(lut[i], RIGHT12, CHANNEL_2);
 }
@@ -189,27 +189,79 @@ int main() {
 \end{footnotesize}
 \end{frame}
 
-\begin{frame}{Методы программной генерации сигнала}
-  \begin{figure}
-  \includegraphics[width=1\textwidth]{dds256}
-  \caption{Формирование отсчётов при коде частоты 256.}
-  \end{figure}
+\begin{frame}[containsverbatim]{Моделирование DDS}
+Формирование отсчётов при коде частоты 256.
+\begin{footnotesize}
+\begin{minted}
+	[
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1.2,
+	%fontsize=\footnotesize,
+	linenos,
+	breaklines
+	]
+	{text}
+[kenny@desktop dds] gcc dds.c -o dds && ./dds
+0 0x7F
+1 0x82
+...
+254 0x79
+255 0x7C
+	\end{minted}
+\end{footnotesize}
 \end{frame}
 	
 	
-\begin{frame}{Моделирование DDS}
-  \begin{figure}
-  \includegraphics[width=1\textwidth]{dds512}
-  \caption{Формирование отсчётов при коде частоты 512.}
-  \end{figure}
+\begin{frame}[containsverbatim]{Моделирование DDS}
+Формирование отсчётов при коде частоты 512.
+\begin{footnotesize}
+\begin{minted}
+	[
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1.2,
+	%fontsize=\footnotesize,
+	linenos,
+	breaklines
+	]
+	{text}
+[kenny@desktop dds] gcc dds.c -o dds && ./dds
+0 0x7F
+2 0x85
+...
+252 0x73
+254 0x79
+	\end{minted}
+\end{footnotesize}
 \end{frame}
 	
 
-\begin{frame}{Моделирование DDS}
-  \begin{figure}
-  \includegraphics[width=1\textwidth]{dds128}
-  \caption{Формирование отсчётов при коде частоты 128.}
-  \end{figure}
+\begin{frame}[containsverbatim]{Моделирование DDS}
+Формирование отсчётов при коде частоты 128.
+\begin{footnotesize}
+\begin{minted}
+	[
+	frame=lines,
+	framesep=2mm,
+	baselinestretch=1.2,
+	%fontsize=\footnotesize,
+	linenos,
+	breaklines
+	]
+	{text}
+[kenny@desktop dds] gcc dds.c -o dds && ./dds
+0 0x7F
+0 0x7F
+1 0x82
+1 0x82
+...
+254 0x79
+254 0x79
+255 0x7C
+255 0x7C
+	\end{minted}
+\end{footnotesize}
 \end{frame}
 
 \begin{frame}{Реализация}
