@@ -318,6 +318,10 @@
 % Правка для таблицы, оформление по требованиям кафедры.
 \def\fnum@table{\hfill\tablename~\thetable\\}
 
+\usepackage{caption}
+\usepackage{subcaption}
+\renewcommand\thesubfigure{\asbuk{subfigure}}
+
 % Определение титульной страницы.
 \def\maketitle {
   \newlength{\ML}
