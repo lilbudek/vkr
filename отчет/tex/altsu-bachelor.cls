@@ -317,7 +317,7 @@
 
 % Правка для таблицы, оформление по требованиям кафедры.
 \def\fnum@table{\hfill\tablename~\thetable\\}
-
+% это мои пакеты
 \usepackage{caption}
 \usepackage{subcaption}
 \renewcommand\thesubfigure{\asbuk{subfigure}}
