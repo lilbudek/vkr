@@ -186,6 +186,8 @@
 \renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
 \renewcommand{\labelenumiii}{\theenumiii}
 \renewcommand{\theenumiii}{\theenumi.\arabic{enumii}.\arabic{enumiii}}
+% Правка 20240504
+\renewcommand{\theequation}{\thechapter\arabic{equation}}
 
 %%% Оглавление %%%
 \usepackage[dotinlabels]{titletoc}
@@ -349,7 +351,6 @@
     
     \begin{minipage}{1\textwidth}
       \noindent
-      
       \begin{minipage}{0.48\textwidth}
         Работа защищена\\
         «\underline{\hspace{0.7cm}}» \underline{\hspace{2cm}} \the\year~г.\\
@@ -368,7 +369,7 @@
       \end{minipage}%
     \end{minipage}%
 
-    \vspace{2cm}
+    \vspace{1cm}
     
     {\MakeUppercase{\@title}}
     \vspace{0.5cm}
