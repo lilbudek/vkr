@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+void tim3\PYGZus{}isr(void) // обработчик прерывания таймера3 (обработка кнопок)
+\PYGZob{}
+    minus\PYGZus{}freq();
+    plus\PYGZus{}freq();
+    minus\PYGZus{}signal(); // функции кнопок
+    plus\PYGZus{}signal();
+    step\PYGZus{}select();
+    TIM\PYGZus{}SR(TIM3) \PYGZam{}= \PYGZti{}TIM\PYGZus{}SR\PYGZus{}UIF; // очистка флага прерывания
+\PYGZcb{}
+\end{Verbatim}
