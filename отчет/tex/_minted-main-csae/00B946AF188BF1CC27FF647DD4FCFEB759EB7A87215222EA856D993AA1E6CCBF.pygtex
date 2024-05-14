@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+void tim2\PYGZus{}isr(void) // обработчик прерывания таймера2 (ЦАП)
+\PYGZob{}
+    dac\PYGZus{}load\PYGZus{}data\PYGZus{}buffer\PYGZus{}single(signal[p\PYGZus{}acc \PYGZgt{}\PYGZgt{} 8], RIGHT12, CHANNEL\PYGZus{}2); // загрузка буфера в цап
+    p\PYGZus{}acc += p\PYGZus{}step;             // шаг
+    TIM\PYGZus{}SR(TIM2) \PYGZam{}= \PYGZti{}TIM\PYGZus{}SR\PYGZus{}UIF; // очистка флага прерывания
+\PYGZcb{}
+\end{Verbatim}
