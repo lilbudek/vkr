@@ -429,19 +429,19 @@
   Дипломная работа оформлена с помощью системы компьютерной вёрстки \TeX{} и его расширения \XeTeX{} 
   из дистрибутива \textit{TeX Live}.
   
-  \begin{center}
-    ABSTRACT
-  \end{center}
-  
-  The total amount of work is \formbytotal{TotPages}{page}{}{}{'s}, include
-  \formbytotal{totalcount@figure}{image}{}{}{'s} and \formbytotal{totalcount@table}{table}{}{}{'s}.
-  
-  \@abstractEN
-  
-  Keyword: \@keysEN.
-  
-  Thesis is framed using the computer layout system \TeX{} and its extension \XeTeX{}
-  from the distribution \textit{TeX Live}.
+%  \begin{center}
+%    ABSTRACT
+%  \end{center}
+%  
+%  The total amount of work is \formbytotal{TotPages}{page}{}{}{'s}, include
+%  \formbytotal{totalcount@figure}{image}{}{}{'s} and \formbytotal{totalcount@table}{table}{}{}{'s}.
+%  
+%  \@abstractEN
+%  
+%  Keyword: \@keysEN.
+%  
+%  Thesis is framed using the computer layout system \TeX{} and its extension \XeTeX{}
+%  from the distribution \textit{TeX Live}.
 }
 
 % Определение последней страницы.
