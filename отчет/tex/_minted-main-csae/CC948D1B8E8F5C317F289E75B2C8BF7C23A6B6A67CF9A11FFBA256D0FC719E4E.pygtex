@@ -1,0 +1,37 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+int main(void)
+\PYGZob{}
+    rcc\PYGZus{}clock\PYGZus{}setup\PYGZus{}in\PYGZus{}hse\PYGZus{}8mhz\PYGZus{}out\PYGZus{}72mhz(); // установка тактирования
+    gpio\PYGZus{}setup();
+    nvic\PYGZus{}setup();
+    dac\PYGZus{}setup();
+    timers\PYGZus{}setup();
+    i2c\PYGZus{}setup();
+    ssd1306\PYGZus{}init(I2C2, DEFAULT\PYGZus{}7bit\PYGZus{}OLED\PYGZus{}SLAVE\PYGZus{}ADDRESS, 128, 64); // инициализация дисплея
+
+    int f = 0;       // переменная частоты
+    wchar\PYGZus{}t freq[8]; // буфер для wchar\PYGZus{}t строки
+    while (1)
+    \PYGZob{}
+        f = p\PYGZus{}step / 24 * 125;
+        swprintf(freq, sizeof(freq) / sizeof(wchar\PYGZus{}t), L\PYGZdq{}\PYGZpc{}d\PYGZdq{}, f); // Использование swprintf для преобразования int в wchar\PYGZus{}t*
+        /*  вывод информации на дисплей  */
+        ssd1306\PYGZus{}clear();
+        ssd1306\PYGZus{}drawWCharStr(0, 0, white, nowrap, L\PYGZdq{}Форма сигнала:\PYGZdq{});
+        switch (num\PYGZus{}sig)
+        \PYGZob{}
+        ...
+        \PYGZcb{}
+        ssd1306\PYGZus{}drawWCharStr(0, 16, white, nowrap, L\PYGZdq{}Частота(Гц)\PYGZdq{});
+        ssd1306\PYGZus{}drawWCharStr(64, 16, white, nowrap, freq);
+        ssd1306\PYGZus{}drawWCharStr(0, 32, white, nowrap, L\PYGZdq{}Шаг(Гц)\PYGZdq{});
+        switch (num\PYGZus{}step)
+        \PYGZob{}
+        ...
+        \PYGZcb{}
+        ssd1306\PYGZus{}refresh();
+    \PYGZcb{}
+
+    return 0;
+\PYGZcb{}
+\end{Verbatim}
