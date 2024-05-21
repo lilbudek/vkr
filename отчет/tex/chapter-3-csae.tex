@@ -1,4 +1,4 @@
-\chapter{ПРОЕКТИРОВАНИЕ И ТЕСТИРОВАНИЕ ГЕНЕРАТОРА СИГНАЛОВ}
+\chapter{СБОРКА И ТЕСТИРОВАНИЕ ГЕНЕРАТОРА СИГНАЛОВ}
 \section{Конструирование макета}
 	По структурной схеме (рис. 2.7) создадим схему электрическую принципиальную. 
 	
@@ -9,6 +9,18 @@
 	\end{figure}
 	
 	Просто так контроллер работать не сможет. Необходим внешний кварцевый резонатор для стабилизации частоты системного тактового генератора, а также функция сброса. Эти узлы уже реализованы на отладочной плате микроконтроллера. Питание схемы будет подаваться через разъём SWD.
+		
+	Для улучшения генерации будет задействован встроенный в цифро-аналоговый преобразователь выходной буфер. При его использовании он будет срезать сигнал сверху и снизу на 0.2В, поэтому значения тоже следует срезать на эту же величину для корректной генерации.
+	
+	В документе от STM про работу с цифро-аналоговым преобразователем есть формула для расчета выходного напряжения~\cite{an3126}.
+	
+	$DAC_{output} = V_{REF}*\dfrac{DOR}{DAC_{MaxDigitalValue} + 1}$, где DOR --- цифровое значение.
+	
+	Нам нужно найти какое значение соответствует напряжению 0.2В. Выразим DOR и подставим имеющиеся значения.
+	
+	$DOR = \dfrac{V_{REF}}{DOR}*DAC_{MaxDigitalValue} + 1 = \dfrac{3.3}{0.2}*(4095+1) = 248$
+	
+	Поэтому для отсчётов нужно будет указать смещение от нуля 248, а максимальное значение 4095 меньше на 248, то есть 3847. 
 	
 	Для управления потребуется 5 кнопок
 	\begin{enumerate}
@@ -100,7 +112,7 @@
 
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\textwidth]{../image/m1.jpeg}
+    \includegraphics[width=0.5\textwidth]{../image/m1.jpeg}
     \caption{Плата периферии.}
 	\end{figure}	
 	
@@ -108,11 +120,277 @@
 
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\textwidth]{../image/m2.jpeg}
+    \includegraphics[width=0.5\textwidth]{../image/m2.jpg}
     \caption{Макет устройства.}
 	\end{figure}	
 
 \section{Тестирование устройства}
+	
+	После запуска устройства на экране появляются строки с пустыми параметрами формы сигнала, частоты и шага.
 
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test0_u_s.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.7\textwidth]{../image/test0_o_s.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Выбор сигнала синуса.}
+	\end{figure}
+	
+	Логика работы дисплея описана блок-схемой (рис. 3.8).
+	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../image/display.pdf}
+    \caption{Алгоритм дисплея.}
+	\end{figure}	
+	
+	Требуется выставить параметры сигнала. Клавишами N и P выбирается форма сигнала.
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test1_u_s.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test1_o_s.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Выбор сигнала синуса.}
+	\end{figure}
+	
+	При нажатии клавиши N выполняется алгоритм, описанный блок-схемой (рис. 3.10).
+	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../image/plus_signal.pdf}
+    \caption{Выбор следующего сигнала.}
+	\end{figure}	
+	
+	Попробуем выбрать другие сигналы.
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test2_u_s.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test2_o_s.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Выбор сигнала меандра.}
+	\end{figure}
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test3_u_s.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test3_o_s.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Выбор сигнала треугольника.}
+	\end{figure}
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test4_u_s.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test4_o_s.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Выбор сигнала пилы левой.}
+	\end{figure}
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test5_u_s.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test5_o_s.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Выбор сигнала пилы правой.}
+	\end{figure}
+	
+	Как можно заметить функция, привязанная к кнопке N выполняется корректно.
 
+	Для клавиши P алгоритм отличается только тем, что номер сигнала нужно декрементировать. Функция также отрабатывает корректно.
+	
+	Теперь нужно выбрать величину шага, с которым будет регулироваться частота сигнала. Алгоритм для установки шага следующий (рис. 3.16).
+	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../image/step_select.pdf}
+    \caption{Выбор шага.}
+	\end{figure}	
+	
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test1_u_st.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test1_o_st.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Выбор шага 125 Гц.}
+	\end{figure}
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test2_u_st.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test2_o_st.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Выбор шага 250 Гц.}
+	\end{figure}
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test3_u_st.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test3_o_st.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Выбор шага 500 Гц.}
+	\end{figure}
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test4_u_st.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test4_o_st.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Выбор шага 1000 Гц.}
+	\end{figure}
+	
+	Выбор шага происходит циклично, поэтому для него требуется только одна кнопка. По тестам можно сделать вывод, что функция выполняется правильно. 
+	
+	С помощью клавиш F- и F+ регулируется частота.  (todo).
+	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../image/minus_freq.pdf}
+    \caption{Уменьшение частоты.}
+	\end{figure}	
+	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../image/plus_freq.pdf}
+    \caption{Увеличение частоты.}
+	\end{figure}	
+	
+	Проверим что расчет частоты правильный в соответствии с шагом.
+	
+	Частота рассчитывается todo
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test1_u_f.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test1_o_f.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Шаг 125 Гц.}
+	\end{figure}
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test2_u_f.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test2_o_f.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Шаг 250 Гц.}
+	\end{figure}
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test3_u_f.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test3_o_f.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Шаг 500 Гц.}
+	\end{figure}
+	
+	\begin{figure}[H]
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.9\textwidth]{../image/test4_u_f.jpg}
+         \caption{Устройство.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=0.8\textwidth]{../image/test4_o_f.png}
+         \caption{Отладчик.}
+     \end{subfigure}
+        \caption{Шаг 1000 Гц.}
+	\end{figure}
+	
+	В соответствии с частотами сделаем осциллограммы todo.
+	
 \section{Вывод из третьей главы}
