@@ -14,11 +14,23 @@
 	
 	В документе от STM про работу с цифро-аналоговым преобразователем есть формула для расчета выходного напряжения~\cite{an3126}.
 	
-	$DAC_{output} = V_{REF}*\dfrac{DOR}{DAC_{MaxDigitalValue} + 1}$, где DOR --- цифровое значение.
+	\begin{gather}
+	DAC_{output} = V_{REF}*\dfrac{DOR}{DAC_{MaxDigitalValue} + 1},
+	\end{gather}
+	
+	где $DAC_{output}$ --- выходное напряжение ЦАП,
+	
+	$V_{REF}$ --- опорное напряжение,
+	
+	$DOR$ --- цифровое значение выходного напряжения,
+	
+	$DAC_{MaxDigitalValue}$ --- максимальное значение $DOR$.
 	
 	Нам нужно найти какое значение соответствует напряжению 0.2В. Выразим DOR и подставим имеющиеся значения.
 	
-	$DOR = \dfrac{V_{REF}}{DOR}*DAC_{MaxDigitalValue} + 1 = \dfrac{3.3}{0.2}*(4095+1) = 248$
+	\begin{center}
+	$DOR = \dfrac{V_{REF}}{DAC_{output}}*DAC_{MaxDigitalValue} + 1 = \dfrac{3.3}{0.2}*(4095+1) = 248$
+	\end{center}
 	
 	Поэтому для отсчётов нужно будет указать смещение от нуля 248, а максимальное значение 4095 меньше на 248, то есть 3847. 
 	
@@ -140,7 +152,7 @@
          \includegraphics[width=0.7\textwidth]{../image/test0_o_s.png}
          \caption{Отладчик.}
      \end{subfigure}
-        \caption{Выбор сигнала синуса.}
+        \caption{Начальное состояние.}
 	\end{figure}
 	
 	Логика работы дисплея описана блок-схемой (рис. 3.8).
@@ -151,8 +163,15 @@
     \caption{Алгоритм дисплея.}
 	\end{figure}	
 	
-	Требуется выставить параметры сигнала. Клавишами N и P выбирается форма сигнала.
+	Требуется выставить параметры сигнала. Клавишами N и P выбирается форма сигнала. При нажатии клавиши N выполняется алгоритм, описанный блок-схемой (рис. 3.10).
 	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{../image/plus_signal.pdf}
+    \caption{Выбор следующего сигнала.}
+	\end{figure}	
+	
+	Просмотрим сигналы.
 	\begin{figure}[H]
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
@@ -167,16 +186,6 @@
      \end{subfigure}
         \caption{Выбор сигнала синуса.}
 	\end{figure}
-	
-	При нажатии клавиши N выполняется алгоритм, описанный блок-схемой (рис. 3.10).
-	
-	\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{../image/plus_signal.pdf}
-    \caption{Выбор следующего сигнала.}
-	\end{figure}	
-	
-	Попробуем выбрать другие сигналы.
 	
 	\begin{figure}[H]
      \begin{subfigure}[H]{0.5\textwidth}
@@ -313,34 +322,44 @@
 	
 	Выбор шага происходит циклично, поэтому для него требуется только одна кнопка. По тестам можно сделать вывод, что функция выполняется правильно. 
 	
-	С помощью клавиш F- и F+ регулируется частота.  (todo).
+	С помощью клавиш F- и F+ регулируется частота. Алгоритм представлен блок-схемами (рис. 3.20).
 	
 	\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{../image/minus_freq.pdf}
-    \caption{Уменьшение частоты.}
-	\end{figure}	
+     \begin{subfigure}[H]{1\textwidth}
+         \centering
+         \includegraphics[width=0.775\textwidth]{../image/minus_freq.pdf}
+         \caption{Уменьшение частоты.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{1\textwidth}
+         \centering
+         \includegraphics[width=0.775\textwidth]{../image/plus_freq.pdf}
+         \caption{Увеличение частоты.}
+     \end{subfigure}
+        \caption{Регулировка частоты.}
+	\end{figure}
 	
-	\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{../image/plus_freq.pdf}
-    \caption{Увеличение частоты.}
-	\end{figure}	
+	Проверим что расчет частоты правильный в соответствии с шагом. Частота рассчитывается по следующей формуле.
+	\begin{gather}
+	f = \dfrac{p_{step}}{step_{min}*f_{min}},
+	\end{gather}
 	
-	Проверим что расчет частоты правильный в соответствии с шагом.
+	где $p_{step}$ --- текущий код частоты,
 	
-	Частота рассчитывается todo
+	$step_{min}$ --- минимальный код частоты,
+	
+	$f_{min}$ --- минимальный шаг по частоте.
 	
 	\begin{figure}[H]
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.9\textwidth]{../image/test1_u_f.jpg}
+         \includegraphics[width=0.8\textwidth]{../image/test1_u_f.jpg}
          \caption{Устройство.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.8\textwidth]{../image/test1_o_f.png}
+         \includegraphics[width=0.7\textwidth]{../image/test1_o_f.png}
          \caption{Отладчик.}
      \end{subfigure}
         \caption{Шаг 125 Гц.}
@@ -349,13 +368,13 @@
 	\begin{figure}[H]
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.9\textwidth]{../image/test2_u_f.jpg}
+         \includegraphics[width=0.8\textwidth]{../image/test2_u_f.jpg}
          \caption{Устройство.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.8\textwidth]{../image/test2_o_f.png}
+         \includegraphics[width=0.7\textwidth]{../image/test2_o_f.png}
          \caption{Отладчик.}
      \end{subfigure}
         \caption{Шаг 250 Гц.}
