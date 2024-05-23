@@ -1,5 +1,5 @@
 \chapter{ПРОЕКТИРОВАНИЕ И ТЕСТИРОВАНИЕ ГЕНЕРАТОРА СИГНАЛОВ}
-\section{Конструирование макета}
+\section{Проектирование}
 	По структурной схеме (рис. 2.7) создадим схему электрическую принципиальную. 
 	
 	\begin{figure}[H]
@@ -280,15 +280,67 @@
 	Снимем сигнал с осциллографа.
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../image/1875.bmp}
+    \includegraphics[width=0.8\textwidth]{../image/1875.bmp}
     \caption{Синус 1875 Гц.}
 	\end{figure}	
 	
 	Рассмотрим все формы сигналов на частоте 1 кГц
 
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../image/sin1.bmp}
+    \caption{Синус 1 кГц.}
+	\end{figure}	
+	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../image/square1.bmp}
+    \caption{Прямоугольник 1 кГц.}
+	\end{figure}	
+	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../image/triangle1.bmp}
+    \caption{Треугольник 1 кГц.}
+	\end{figure}	
 
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../image/l_saw1.bmp}
+    \caption{Пила левая 1 кГц.}
+	\end{figure}	
 	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../image/r_saw1.bmp}
+    \caption{Пила правая 1 кГц.}
+	\end{figure}	
 	
+	Как можно заметить устройство генерирует все заданные формы сигналов. Рассмотрим более высокие частоты синуса.
 	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../image/sin10.bmp}
+    \caption{Синус 10 кГц.}
+	\end{figure}	
+	
+	На 10 кГц уже можно наблюдать, что отсчёты сигнала не такие ровные. На 50 кГц синусоиду уже трудно узнать. На её период приходится 8 отсчётов.
+	
+	\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../image/sin50.bmp}
+    \caption{Синус 50 кГц.}
+	\end{figure}	
+	
+	Исходя из этого можно сделать вывод, что присутствует шум цифро-аналогового преобразователя. 
 
-\section{Вывод из третьей главы}
+\section{Вывод}
+	Таким образом, генератор сигналов был реализован в виде прототипа. Тестирование показало, что устройство успешно выполняет заданные функции. Были проверены различные формы сигналов, а также возможность регулирования частоты с заданным шагом. Дополнительно был проведен анализ качества сигнала при различных частотах, что позволило выявить наличие шума цифро-аналогового преобразователя. 
+	
+	В качестве возможных усовершенствований можно рассмотреть:
+	\begin{enumerate}
+	\item Установка фильтра на выход цифро-аналогового преобразователя.
+	\item Возможность регулировки амплитуды.
+	\item Возможность регулировки фазы. 
+	\item Разработка печатной платы и корпуса.
+	\end{enumerate}
