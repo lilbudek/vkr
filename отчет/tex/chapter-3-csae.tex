@@ -1,4 +1,4 @@
-\chapter{СБОРКА И ТЕСТИРОВАНИЕ ГЕНЕРАТОРА СИГНАЛОВ}
+\chapter{ПРОЕКТИРОВАНИЕ И ТЕСТИРОВАНИЕ ГЕНЕРАТОРА СИГНАЛОВ}
 \section{Конструирование макета}
 	По структурной схеме (рис. 2.7) создадим схему электрическую принципиальную. 
 	
@@ -138,7 +138,16 @@
 
 \section{Тестирование устройства}
 	
-	После запуска устройства на экране появляются строки с пустыми параметрами формы сигнала, частоты и шага.
+	Протестируем работоспособность полученного устройства. Будем отслеживать состояние устройства и информацию в отладчике. В отладчике будем отслеживать следующие переменные:
+	\begin{enumerate}
+	\item f --- расчетная частота.
+	\item step --- код частоты (шаг по частоте).
+	\item num\_step --- номер шага.
+	\item num\_sig --- номер сигнала.
+	\item signal --- буфер сигнала.
+	\end{enumerate}		
+	
+	После запуска устройства на экране появляются строки с пустыми параметрами формы сигнала, частоты и шага. 
 
 	\begin{figure}[H]
      \begin{subfigure}[H]{0.5\textwidth}
@@ -163,15 +172,15 @@
     \caption{Алгоритм дисплея.}
 	\end{figure}	
 	
-	Требуется выставить параметры сигнала. Клавишами N и P выбирается форма сигнала. При нажатии клавиши N выполняется алгоритм, описанный блок-схемой (рис. 3.10).
+	Требуется выставить параметры сигнала. Клавишами N и P выбирается форма сигнала. При нажатии клавиши N выполняется алгоритм, описанный блок-схемой (рис. 3.10). Для клавиши P алгоритм отличается только тем, что номер сигнала нужно декрементировать.
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../image/plus_signal.pdf}
+    \includegraphics[width=0.9\textwidth]{../image/plus_signal.pdf}
     \caption{Выбор следующего сигнала.}
 	\end{figure}	
 	
-	Просмотрим сигналы.
+	При выборе сигнала пользователь листает формы сигнала, а микроконтроллер заполняет буфер отсчётами выбранного сигнала. Выберем сигнал синуса.
 	\begin{figure}[H]
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
@@ -187,70 +196,6 @@
         \caption{Выбор сигнала синуса.}
 	\end{figure}
 	
-	\begin{figure}[H]
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.9\textwidth]{../image/test2_u_s.jpg}
-         \caption{Устройство.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.8\textwidth]{../image/test2_o_s.png}
-         \caption{Отладчик.}
-     \end{subfigure}
-        \caption{Выбор сигнала меандра.}
-	\end{figure}
-	
-	\begin{figure}[H]
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.9\textwidth]{../image/test3_u_s.jpg}
-         \caption{Устройство.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.8\textwidth]{../image/test3_o_s.png}
-         \caption{Отладчик.}
-     \end{subfigure}
-        \caption{Выбор сигнала треугольника.}
-	\end{figure}
-	
-	\begin{figure}[H]
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.9\textwidth]{../image/test4_u_s.jpg}
-         \caption{Устройство.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.8\textwidth]{../image/test4_o_s.png}
-         \caption{Отладчик.}
-     \end{subfigure}
-        \caption{Выбор сигнала пилы левой.}
-	\end{figure}
-	
-	\begin{figure}[H]
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.9\textwidth]{../image/test5_u_s.jpg}
-         \caption{Устройство.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.8\textwidth]{../image/test5_o_s.png}
-         \caption{Отладчик.}
-     \end{subfigure}
-        \caption{Выбор сигнала пилы правой.}
-	\end{figure}
-	
-	Как можно заметить функция, привязанная к кнопке N выполняется корректно.
-
-	Для клавиши P алгоритм отличается только тем, что номер сигнала нужно декрементировать. Функция также отрабатывает корректно.
-	
 	Теперь нужно выбрать величину шага, с которым будет регулироваться частота сигнала. Алгоритм для установки шага следующий (рис. 3.16).
 	
 	\begin{figure}[H]
@@ -259,6 +204,15 @@
     \caption{Выбор шага.}
 	\end{figure}	
 	
+	Как можно заметить из блок-схемы всего есть 4 шага:
+	\begin{enumerate}
+		\item 125 Гц.
+		\item 250 Гц.
+		\item 500 Гц.
+		\item 1000 Гц.
+	\end{enumerate}
+	
+	Выберем для примера шаг 125 Гц.
 	
 	\begin{figure}[H]
      \begin{subfigure}[H]{0.5\textwidth}
@@ -275,54 +229,10 @@
         \caption{Выбор шага 125 Гц.}
 	\end{figure}
 	
-	\begin{figure}[H]
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.9\textwidth]{../image/test2_u_st.jpg}
-         \caption{Устройство.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.8\textwidth]{../image/test2_o_st.png}
-         \caption{Отладчик.}
-     \end{subfigure}
-        \caption{Выбор шага 250 Гц.}
-	\end{figure}
 	
-	\begin{figure}[H]
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.9\textwidth]{../image/test3_u_st.jpg}
-         \caption{Устройство.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.8\textwidth]{../image/test3_o_st.png}
-         \caption{Отладчик.}
-     \end{subfigure}
-        \caption{Выбор шага 500 Гц.}
-	\end{figure}
+	Выбор шага происходит циклично, поэтому для него требуется только одна кнопка. Самим же шагом по частоте является переменная step, которая содержит в себе для микроконтроллера код частоты, соответствующий частотам генерируемого сигнала.
 	
-	\begin{figure}[H]
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.9\textwidth]{../image/test4_u_st.jpg}
-         \caption{Устройство.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.8\textwidth]{../image/test4_o_st.png}
-         \caption{Отладчик.}
-     \end{subfigure}
-        \caption{Выбор шага 1000 Гц.}
-	\end{figure}
-	
-	Выбор шага происходит циклично, поэтому для него требуется только одна кнопка. По тестам можно сделать вывод, что функция выполняется правильно. 
-	
-	С помощью клавиш F- и F+ регулируется частота. Алгоритм представлен блок-схемами (рис. 3.20).
+	С помощью клавиш F- и F+ регулируется частота с заданным шагом. Возможный диапазон частот, который можно выставить 125 --- 50000 Гц. Алгоритм представлен блок-схемами (рис. 3.20).
 	
 	\begin{figure}[H]
      \begin{subfigure}[H]{1\textwidth}
@@ -339,117 +249,44 @@
         \caption{Регулировка частоты.}
 	\end{figure}
 	
-	Проверим что расчет частоты правильный в соответствии с шагом. Частота рассчитывается по следующей формуле.
-	\begin{gather}
-	f = \dfrac{p_{step}}{step_{min}*f_{min}},
-	\end{gather}
-	
-	где $p_{step}$ --- текущий код частоты,
-	
-	$step_{min}$ --- минимальный код частоты,
-	
-	$f_{min}$ --- минимальный шаг по частоте.
-	
-	\begin{figure}[H]
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.8\textwidth]{../image/test1_u_f.jpg}
-         \caption{Устройство.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.7\textwidth]{../image/test1_o_f.png}
-         \caption{Отладчик.}
-     \end{subfigure}
-        \caption{Шаг 125 Гц.}
-	\end{figure}
-	
-	\begin{figure}[H]
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.8\textwidth]{../image/test2_u_f.jpg}
-         \caption{Устройство.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.7\textwidth]{../image/test2_o_f.png}
-         \caption{Отладчик.}
-     \end{subfigure}
-        \caption{Шаг 250 Гц.}
-	\end{figure}
-	
-	\begin{figure}[H]
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.9\textwidth]{../image/test3_u_f.jpg}
-         \caption{Устройство.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.5\textwidth}
-         \centering
-         \includegraphics[width=0.8\textwidth]{../image/test3_o_f.png}
-         \caption{Отладчик.}
-     \end{subfigure}
-        \caption{Шаг 500 Гц.}
-	\end{figure}
+%	Проверим что расчет частоты правильный в соответствии с шагом и снимем сигнал с осциллографа. Частота рассчитывается по следующей формуле.
+%	\begin{gather}
+%	f = \dfrac{p_{step}}{step_{min}*f_{min}},
+%	\end{gather}
+%	
+%	где $p_{step}$ --- текущий код частоты,
+%	
+%	$step_{min}$ --- минимальный код частоты,
+%	
+%	$f_{min}$ --- минимальный шаг по частоте.
+
+	Все функции отрабатывают корректно. Выставим сигнал синуса с частотой 1875 Гц.
 	
 	\begin{figure}[H]
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.9\textwidth]{../image/test4_u_f.jpg}
          \caption{Устройство.}
-     \end{subfigure}
+    	\end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.8\textwidth]{../image/test4_o_f.png}
          \caption{Отладчик.}
      \end{subfigure}
-        \caption{Шаг 1000 Гц.}
+        \caption{Выставленные параметры.}
 	\end{figure}
 	
-	В соответствии с частотами сделаем осциллограммы.
-	
-	\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{../image/125.bmp}
-    \caption{Синус 125 Гц.}
-	\end{figure}	
-	
-	\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{../image/375.bmp}
-    \caption{Синус 375 Гц.}
-	\end{figure}	
-	
-		\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{../image/875.bmp}
-    \caption{Синус 875 Гц.}
-	\end{figure}	
-	
+	Снимем сигнал с осциллографа.
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{../image/1875.bmp}
     \caption{Синус 1875 Гц.}
 	\end{figure}	
 	
-	Вычислим относительную погрешность частоты по формуле:
-	\begin{gather}
-	\delta=\dfrac{f_{s}-f}{f}*100\%,
-	\end{gather}
-	
-	где $f_{s}$ --- частота сигнала,
-	
-	$f$ --- заданная частота.
-	
-	\begin{center}
-	$\delta=\dfrac{1894-1875}{1875}*100\%=1\%$
-	\end{center}
-	
-	Таким образом, частотная погрешность составляет 1\%.
+	Рассмотрим все формы сигналов на частоте 1 кГц
+
+
 	
 	
 	
