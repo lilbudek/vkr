@@ -1,11 +1,11 @@
 \chapter{ПРОЕКТИРОВАНИЕ И ТЕСТИРОВАНИЕ ГЕНЕРАТОРА СИГНАЛОВ}
 \section{Проектирование}
-	По структурной схеме (рис. 2.7) создадим схему электрическую принципиальную. 
+	По структурной схеме (рис. 2.7) создадим фрагмент схемы электрической принципиальной. 
 	
 	\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../image/scheme-cropped.png}
-    \caption{Схема электрическая принципиальная.}
+    \caption{Фрагмент схемы электрической принципиальной.}
 	\end{figure}
 	
 	Просто так контроллер работать не сможет. Необходим внешний кварцевый резонатор для стабилизации частоты системного тактового генератора, а также функция сброса. Эти узлы уже реализованы на отладочной плате микроконтроллера. Питание схемы будет подаваться через разъём SWD.
@@ -29,17 +29,17 @@
 	Нам нужно найти какое значение соответствует напряжению 0.2В. Выразим DOR и подставим имеющиеся значения.
 	
 	\begin{center}
-	$DOR = \dfrac{V_{REF}}{DAC_{output}}*DAC_{MaxDigitalValue} + 1 = \dfrac{3.3}{0.2}*(4095+1) = 248$
+	$DOR = \dfrac{V_{REF}}{DAC_{output}}*DAC_{MaxDigitalValue} + 1 = \dfrac{3.3}{0.2}*(4095+1) = 248.$
 	\end{center}
 	
 	Поэтому для отсчётов нужно будет указать смещение от нуля 248, а максимальное значение 4095 меньше на 248, то есть 3847. 
 	
 	Для управления потребуется 5 кнопок
 	\begin{enumerate}
-		\item Уменьшить частоту.
-		\item Увеличить частоту.
-		\item Предыдущий сигнал.
-		\item Следующий сигнал.
+		\item Уменьшить частоту;
+		\item Увеличить частоту;
+		\item Предыдущий сигнал;
+		\item Следующий сигнал;
 		\item Выбор шага.
 	\end{enumerate}
 	
@@ -113,10 +113,10 @@
 	
 	Назначения кнопок:
 	\begin{enumerate}
-	\item F- --- уменьшить частоту.
-	\item F+ --- увеличить частоту.
-	\item P --- предыдущий сигнал.
-	\item N --- следующий сигнал.
+	\item F- --- уменьшить частоту;
+	\item F+ --- увеличить частоту;
+	\item P --- предыдущий сигнал;
+	\item N --- следующий сигнал;
 	\item S --- переключить шаг по частоте.
 	\end{enumerate}
 	
@@ -133,23 +133,23 @@
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{../image/m2.jpg}
-    \caption{Макет устройства.}
+    \caption{Прототип устройства.}
 	\end{figure}	
 
 \section{Тестирование устройства}
 	
 	Протестируем работоспособность полученного устройства. Будем отслеживать состояние устройства и информацию в отладчике. В отладчике будем отслеживать следующие переменные:
-	\begin{enumerate}
-	\item f --- расчетная частота.
-	\item step --- код частоты (шаг по частоте).
-	\item num\_step --- номер шага.
-	\item num\_sig --- номер сигнала.
+	\begin{itemize}
+	\item f --- расчетная частота;
+	\item step --- код частоты (шаг по частоте);
+	\item num\_step --- номер шага;
+	\item num\_sig --- номер сигнала;
 	\item signal --- буфер сигнала.
-	\end{enumerate}		
+	\end{itemize}		
 	
 	После запуска устройства на экране появляются строки с пустыми параметрами формы сигнала, частоты и шага. 
 
-	\begin{figure}[H]
+	\begin{figure}[H]\captionsetup[subfigure]{font=normalsize}
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.8\textwidth]{../image/test0_u_s.jpg}
@@ -181,7 +181,7 @@
 	\end{figure}	
 	
 	При выборе сигнала пользователь листает формы сигнала, а микроконтроллер заполняет буфер отсчётами выбранного сигнала. Выберем сигнал синуса.
-	\begin{figure}[H]
+	\begin{figure}[H]\captionsetup[subfigure]{font=normalsize}
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.9\textwidth]{../image/test1_u_s.jpg}
@@ -206,15 +206,15 @@
 	
 	Как можно заметить из блок-схемы всего есть 4 шага:
 	\begin{enumerate}
-		\item 125 Гц.
-		\item 250 Гц.
-		\item 500 Гц.
+		\item 125 Гц;
+		\item 250 Гц;
+		\item 500 Гц;
 		\item 1000 Гц.
 	\end{enumerate}
 	
 	Выберем для примера шаг 125 Гц.
 	
-	\begin{figure}[H]
+	\begin{figure}[H]\captionsetup[subfigure]{font=normalsize}
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.9\textwidth]{../image/test1_u_st.jpg}
@@ -234,7 +234,7 @@
 	
 	С помощью клавиш F- и F+ регулируется частота с заданным шагом. Возможный диапазон частот, который можно выставить 125 --- 50000 Гц. Алгоритм представлен блок-схемами (рис. 3.20).
 	
-	\begin{figure}[H]
+	\begin{figure}[H]\captionsetup[subfigure]{font=normalsize}
      \begin{subfigure}[H]{1\textwidth}
          \centering
          \includegraphics[width=0.775\textwidth]{../image/minus_freq.pdf}
@@ -262,7 +262,7 @@
 
 	Все функции отрабатывают корректно. Выставим сигнал синуса с частотой 1875 Гц.
 	
-	\begin{figure}[H]
+	\begin{figure}[H]\captionsetup[subfigure]{font=normalsize}
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.9\textwidth]{../image/test4_u_f.jpg}
@@ -280,39 +280,39 @@
 	Снимем сигнал с осциллографа.
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../image/1875.bmp}
+    \includegraphics[width=0.75\textwidth]{../image/1875.bmp}
     \caption{Синус 1875 Гц.}
 	\end{figure}	
 	
-	Рассмотрим все формы сигналов на частоте 1 кГц
+	Рассмотрим все формы сигналов на частоте 1 кГц.
 
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../image/sin1.bmp}
+    \includegraphics[width=0.75\textwidth]{../image/sin1.bmp}
     \caption{Синус 1 кГц.}
 	\end{figure}	
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../image/square1.bmp}
+    \includegraphics[width=0.75\textwidth]{../image/square1.bmp}
     \caption{Прямоугольник 1 кГц.}
 	\end{figure}	
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../image/triangle1.bmp}
+    \includegraphics[width=0.75\textwidth]{../image/triangle1.bmp}
     \caption{Треугольник 1 кГц.}
 	\end{figure}	
 
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../image/l_saw1.bmp}
+    \includegraphics[width=0.75\textwidth]{../image/l_saw1.bmp}
     \caption{Пила левая 1 кГц.}
 	\end{figure}	
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../image/r_saw1.bmp}
+    \includegraphics[width=0.75\textwidth]{../image/r_saw1.bmp}
     \caption{Пила правая 1 кГц.}
 	\end{figure}	
 	
@@ -320,7 +320,7 @@
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../image/sin10.bmp}
+    \includegraphics[width=0.75\textwidth]{../image/sin10.bmp}
     \caption{Синус 10 кГц.}
 	\end{figure}	
 	
@@ -328,7 +328,7 @@
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../image/sin50.bmp}
+    \includegraphics[width=0.75\textwidth]{../image/sin50.bmp}
     \caption{Синус 50 кГц.}
 	\end{figure}	
 	
@@ -339,8 +339,8 @@
 	
 	В качестве возможных усовершенствований можно рассмотреть:
 	\begin{enumerate}
-	\item Установка фильтра на выход цифро-аналогового преобразователя.
-	\item Возможность регулировки амплитуды.
-	\item Возможность регулировки фазы. 
+	\item Установка фильтра на выход цифро-аналогового преобразователя;
+	\item Возможность регулировки амплитуды;
+	\item Возможность регулировки фазы;
 	\item Разработка печатной платы и корпуса.
 	\end{enumerate}

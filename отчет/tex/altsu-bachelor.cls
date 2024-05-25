@@ -231,6 +231,12 @@
 \renewcommand\cftchappagefont{\mdseries}
 %\renewcommand{\cftsecdotsep}{\cftnodots} % Убрать точки
 
+% Отступы в рисунках и таблицах
+\captionsetup[table]{font={stretch=1.42}}
+\captionsetup[figure]{font={stretch=1.42}}
+\captionsetup[listing]{font={stretch=1.42}}
+% \captionsetup{font={stretch=1.42}}
+
 \RequirePackage{fancyhdr}
 \pagestyle{fancyplain}
 \fancyhf{}
@@ -343,7 +349,7 @@
     \@department~(\@shortdepartment)
     \vspace{0.5cm}
     \begin{flushleft}
-      УДК: \@UDC
+      УДК \@UDC
     \end{flushleft}
     \vspace{0.5cm}
     
@@ -384,16 +390,16 @@
     \uline{\hfill \@docname.\@groupnumber.\@GradebookNumber~ПЗ \hfill}
   \end{center}
   
-  \noindent Студент группы: \uline{ \mbox{\hspace{\ML}} \@groupnumber \hfill \@author}
+  \noindent Студент группы \uline{ \mbox{\hspace{\ML}} \@groupnumber \hfill \@author}
   \vspace{0.5cm}
   
-  \noindent Руководитель работы: \uline{ \mbox{\hspace{1cm}} \@supervisordegree \hfill \@supervisor}
+  \noindent Руководитель работы \uline{ \mbox{\hspace{1cm}} \@supervisordegree \hfill \@supervisor}
   \vspace{0.5cm}
   
-  \noindent Консультанты: \uline{ \mbox{\hspace{1cm}} \@Consultantdegree \hfill \@Consultant}
+  \noindent Консультант: \@Consultantdegree \hfill \@Consultant
   \vspace{0.5cm}
   
-  \noindent Нормоконтролер: \uline{ \mbox{\hspace{2cm}} \@NormControllerdegree \hfill \@NormController}
+  \noindent Нормоконтролер \uline{ \mbox{\hspace{2cm}} \@NormControllerdegree \hfill \@NormController}
   \vspace{0.5cm}
   
   %\hfill
@@ -426,8 +432,8 @@
   
   \@abstractRU
   
-  Дипломная работа оформлена с помощью системы компьютерной вёрстки \TeX{} и его расширения \XeTeX{} 
-  из дистрибутива \textit{TeX Live}.
+%  Дипломная работа оформлена с помощью системы компьютерной вёрстки \TeX{} и его расширения \XeTeX{} 
+%  из дистрибутива \textit{TeX Live}.
   
 %  \begin{center}
 %    ABSTRACT
@@ -447,6 +453,7 @@
 % Определение последней страницы.
 \def\makelastpage {
   \newpage
+  \thispagestyle{empty}
   
   \begin{center}
     ПОСЛЕДНИЙ ЛИСТ ВКР

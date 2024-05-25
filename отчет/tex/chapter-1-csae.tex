@@ -33,7 +33,7 @@
 
 	Если нужно переместить начало координат ($t=0$) в какой-то момент времени, то в формулу следует добавить фазу:
 	\begin{gather}
-	U=A sin2 \pi ft + \theta
+	U=A sin2 \pi ft + \theta.
 	\end{gather}
 	
 	Синусоидальные сигналы характеризуются тремя параметрами:
@@ -56,7 +56,7 @@
 \subsection{Линейно-меняющийся сигнал}
 	Линейно-меняющийся сигнал --- это напряжение, возрастающее (или убывающее) с постоянной скоростью.
 
-\begin{figure}[H]
+\begin{figure}[H]\captionsetup[subfigure]{font=normalsize}
      \begin{subfigure}[H]{0.45\textwidth}
          \centering
          \includegraphics[width=0.70\textwidth]{../image/s_la.png}
@@ -84,7 +84,7 @@
 
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.35\textwidth]{../image/s_tri.png}
+    \includegraphics[width=0.45\textwidth]{../image/s_tri.png}
     \caption{Треугольный сигнал.}
 	\end{figure}
 
@@ -144,9 +144,9 @@
 \section{Виды генераторов}
 	Источник сигнала часто является неотъемлемой частью схемы, но для тестирования работы удобно иметь отдельный, независимый источник сигнала. В качестве такого источника могут использоваться следующие виды генераторов.
 \begin{enumerate}
-	\item Генераторы синусоидальных сигналов.
-	\item Функциональные генераторы.
-	\item Генераторы сигналов произвольной формы.
+	\item Генераторы синусоидальных сигналов;
+	\item Функциональные генераторы;
+	\item Генераторы сигналов произвольной формы;
 	\item Генераторы импульсов.
 \end{enumerate}
 
@@ -202,7 +202,7 @@
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{../image/cordic.png}
+    \includegraphics[width=0.375\textwidth]{../image/cordic.png}
     \caption{Математическая модель CORDIC.}
 	\end{figure}
 
@@ -226,7 +226,7 @@
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{../image/cordic2.png}
+    \includegraphics[width=0.375\textwidth]{../image/cordic2.png}
     \caption{Поворот вектора.}
 	\end{figure}
 
@@ -240,16 +240,16 @@
 
 	Тогда операция поворота вектора будет состоять из последовательных простых поворотов. В каждой итерации проводятся следующие вычисления:
 	\begin{enumerate}
-	\item Направление поворота (1.8).
-	\item Значение координаты $x$ (1.8).
-	\item Значение координаты $y$ (1.10).
+	\item Направление поворота (1.8);
+	\item Значение координаты $x$ (1.8);
+	\item Значение координаты $y$ (1.10);
 	\item Отклонение вектора	(1.11).
 	\end{enumerate}
 	\begin{gather}
-	\sigma_{i} 	= sign(z_{i}) \\
-	x_{i+1} = x_{i} - \sigma_{i}*y_{i}*2^{-i} \\
-	y_{i+1} = y_{i} + \sigma_{i}*x_{i}*2^{-i} \\
-	z_{i+1} = z_{i} - \sigma_{i}*atan(z^{-i}) 
+	\sigma_{i} 	= sign(z_{i}). \\
+	x_{i+1} = x_{i} - \sigma_{i}*y_{i}*2^{-i}. \\
+	y_{i+1} = y_{i} + \sigma_{i}*x_{i}*2^{-i}. \\
+	z_{i+1} = z_{i} - \sigma_{i}*atan(z^{-i}). 
 	\end{gather}
 	
 	Данный алгоритм применим для генерации синуса и его применение целесообразно только при необходимости быстродействия и высокой точности системы.
@@ -261,7 +261,7 @@
 	
 	Частота сигнала будет зависеть от опорной частоты устройства.
 	\begin{gather}
-	f_{out}=\dfrac{f_{clk}}{n}
+	f_{out}=\dfrac{f_{clk}}{n}.
 	\end{gather}	
 	
 	где n --- количество отсчётов (длина таблицы).	

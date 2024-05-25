@@ -184,6 +184,7 @@ int main(void)
         \PYGZcb{}
         ssd1306\PYGZus{}refresh();
     \PYGZcb{}
+
     return 0;
 \PYGZcb{}
 
@@ -203,51 +204,47 @@ static void dac\PYGZus{}setup(void)
     dac\PYGZus{}enable(CHANNEL\PYGZus{}2);            // включить цап
 \PYGZcb{}
 
-static void i2c\PYGZus{}setup(void)
-\PYGZob{}
+static void i2c\PYGZus{}setup(void)\PYGZob{}
+    // Включение тактирования периферийного оборудования для I2C2
     rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}I2C2);
-    /* Set alternate functions for the SCL and SDA pins of I2C2. */
+
+    /*
+     * Настройка альтернативных функций для пинов SCL и SDA интерфейса I2C2.
+     * Это необходимо для подключения I2C устройств к микроконтроллеру через эти
+ пины.
+     */
     gpio\PYGZus{}set\PYGZus{}mode(GPIOB, GPIO\PYGZus{}MODE\PYGZus{}OUTPUT\PYGZus{}50\PYGZus{}MHZ,
                   GPIO\PYGZus{}CNF\PYGZus{}OUTPUT\PYGZus{}ALTFN\PYGZus{}OPENDRAIN,
                   GPIO\PYGZus{}I2C2\PYGZus{}SCL | GPIO\PYGZus{}I2C2\PYGZus{}SDA);
 
-    /* Disable the I2C before changing any configuration. */
+    // Отключение I2C перед изменением конфигурации
     i2c\PYGZus{}peripheral\PYGZus{}disable(I2C2);
 
-    /* APB1 is running at 36MHz. */
-    i2c\PYGZus{}set\PYGZus{}clock\PYGZus{}frequency(I2C2, I2C\PYGZus{}CR2\PYGZus{}FREQ\PYGZus{}36MHZ);
+    // Сброс состояния периферийного устройства I2C2
+    i2c\PYGZus{}reset(I2C2);
 
-    /* 400KHz \PYGZhy{} I2C Fast Mode */
-    i2c\PYGZus{}set\PYGZus{}fast\PYGZus{}mode(I2C2);
+    // Установка стандартного режима работы I2C
+    i2c\PYGZus{}set\PYGZus{}standard\PYGZus{}mode(I2C2);
 
-    /*
-     * fclock for I2C is 36MHz APB2 \PYGZhy{}\PYGZgt{} cycle time 28ns, low time at 400kHz
-     * incl trise \PYGZhy{}\PYGZgt{} Thigh = 1600ns; CCR = tlow/tcycle = 0x1C,9;
-     * Datasheet suggests 0x1e.
-     */
-    i2c\PYGZus{}set\PYGZus{}ccr(I2C2, 0x1e);
+    // Установка частоты тактового сигнала I2C на 16 МГц
+    i2c\PYGZus{}set\PYGZus{}clock\PYGZus{}frequency(I2C2, I2C\PYGZus{}CR2\PYGZus{}FREQ\PYGZus{}16MHZ);
 
-    /*
-     * fclock for I2C is 36MHz \PYGZhy{}\PYGZgt{} cycle time 28ns, rise time for
-     * 400kHz =\PYGZgt{} 300ns and 100kHz =\PYGZgt{} 1000ns; 300ns/28ns = 10;
-     * Incremented by 1 \PYGZhy{}\PYGZgt{} 11.
-     */
-    i2c\PYGZus{}set\PYGZus{}trise(I2C2, 0x0b);
+    // Настройка параметров управления текущим циклом (CCR) для I2C2
+    i2c\PYGZus{}set\PYGZus{}ccr(I2C2, 0xAA);
 
-    /*
-     * Enable ACK on I2C
-     */
+    // Установка коэффициента дутисцикла (Duty Cycle) для I2C2
+    i2c\PYGZus{}set\PYGZus{}dutycycle(I2C2, I2C\PYGZus{}CCR\PYGZus{}DUTY\PYGZus{}DIV2);
+
+    // Установка времени подъема сигнала SDA после завершения операции чтения/записи
+    i2c\PYGZus{}set\PYGZus{}trise(I2C2, 0x11);
+
+    // Включение подтверждения при получении данных от устройства
     i2c\PYGZus{}enable\PYGZus{}ack(I2C2);
 
-    /*
-     * This is our slave address \PYGZhy{} needed only if we want to receive from
-     * other masters.
-     */
-    i2c\PYGZus{}set\PYGZus{}own\PYGZus{}7bit\PYGZus{}slave\PYGZus{}address(I2C2, 0x32);
-
-    /* If everything is configured \PYGZhy{}\PYGZgt{} enable the peripheral. */
+    // Включение периферийного устройства I2C2
     i2c\PYGZus{}peripheral\PYGZus{}enable(I2C2);
 \PYGZcb{}
+
 
 static void timers\PYGZus{}setup(void)
 \PYGZob{}
@@ -280,6 +277,7 @@ static void nvic\PYGZus{}setup(void)
     /* Активировать прерывания и установить приоритеты */
     nvic\PYGZus{}enable\PYGZus{}irq(NVIC\PYGZus{}TIM2\PYGZus{}IRQ);
     nvic\PYGZus{}set\PYGZus{}priority(NVIC\PYGZus{}TIM2\PYGZus{}IRQ, 2);
+
     nvic\PYGZus{}enable\PYGZus{}irq(NVIC\PYGZus{}TIM3\PYGZus{}IRQ);
     nvic\PYGZus{}set\PYGZus{}priority(NVIC\PYGZus{}TIM3\PYGZus{}IRQ, 1);
 \PYGZcb{}
