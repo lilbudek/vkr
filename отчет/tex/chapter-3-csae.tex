@@ -108,7 +108,7 @@
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{../image/func_gen.png}
-    \caption{Расположение периферии.}
+    \caption{Схема расположения периферии.}
 	\end{figure}
 	
 	Назначения кнопок:
@@ -153,15 +153,15 @@
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.8\textwidth]{../image/test0_u_s.jpg}
-         \caption{Устройство.}
+         \caption{Состояние устройства.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.7\textwidth]{../image/test0_o_s.png}
-         \caption{Отладчик.}
+         \includegraphics[width=0.725\textwidth]{../image/test0_o_s.png}
+         \caption{Состояние в отладчике.}
      \end{subfigure}
-        \caption{Начальное состояние.}
+        \caption{Начальное состояние устройства при запуске.}
 	\end{figure}
 	
 	Логика работы дисплея описана блок-схемой (рис. 3.8).
@@ -169,7 +169,7 @@
 	\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../image/display.pdf}
-    \caption{Алгоритм дисплея.}
+    \caption{Блок-схема алгоритма работы дисплея.}
 	\end{figure}	
 	
 	Требуется выставить параметры сигнала. Клавишами N и P выбирается форма сигнала. При нажатии клавиши N выполняется алгоритм, описанный блок-схемой (рис. 3.10). Для клавиши P алгоритм отличается только тем, что номер сигнала нужно декрементировать.
@@ -177,7 +177,7 @@
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{../image/plus_signal.pdf}
-    \caption{Выбор следующего сигнала.}
+    \caption{Блок-схема алгоритма выбора следующего сигнала.}
 	\end{figure}	
 	
 	При выборе сигнала пользователь листает формы сигнала, а микроконтроллер заполняет буфер отсчётами выбранного сигнала. Выберем сигнал синуса.
@@ -185,15 +185,15 @@
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.9\textwidth]{../image/test1_u_s.jpg}
-         \caption{Устройство.}
+         \caption{Состояние устройства.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.8\textwidth]{../image/test1_o_s.png}
-         \caption{Отладчик.}
+         \caption{Состояние в отладчике.}
      \end{subfigure}
-        \caption{Выбор сигнала синуса.}
+        \caption{Процедура выбора синусоидального сигнала.}
 	\end{figure}
 	
 	Теперь нужно выбрать величину шага, с которым будет регулироваться частота сигнала. Алгоритм для установки шага следующий (рис. 3.16).
@@ -201,7 +201,7 @@
 	\begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{../image/step_select.pdf}
-    \caption{Выбор шага.}
+    \caption{Блок-схема алгоритма выбора шага.}
 	\end{figure}	
 	
 	Как можно заметить из блок-схемы всего есть 4 шага:
@@ -218,15 +218,15 @@
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.9\textwidth]{../image/test1_u_st.jpg}
-         \caption{Устройство.}
+         \caption{Состояние устройства.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.8\textwidth]{../image/test1_o_st.png}
-         \caption{Отладчик.}
+         \caption{Состояние в отладчике.}
      \end{subfigure}
-        \caption{Выбор шага 125 Гц.}
+        \caption{Процедура выбора шага частотой 125 Гц.}
 	\end{figure}
 	
 	
@@ -238,15 +238,15 @@
      \begin{subfigure}[H]{1\textwidth}
          \centering
          \includegraphics[width=0.775\textwidth]{../image/minus_freq.pdf}
-         \caption{Уменьшение частоты.}
+         \caption{Блок-схема алгоритма уменьшения частоты.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{1\textwidth}
          \centering
          \includegraphics[width=0.775\textwidth]{../image/plus_freq.pdf}
-         \caption{Увеличение частоты.}
+         \caption{Блок-схема алгоритма увеличения частоты.}
      \end{subfigure}
-        \caption{Регулировка частоты.}
+        \caption{Блок-схемы алгоритмов регулировки частоты.}
 	\end{figure}
 	
 %	Проверим что расчет частоты правильный в соответствии с шагом и снимем сигнал с осциллографа. Частота рассчитывается по следующей формуле.
@@ -266,13 +266,13 @@
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.9\textwidth]{../image/test4_u_f.jpg}
-         \caption{Устройство.}
+         \caption{Состояние устройства.}
     	\end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=0.8\textwidth]{../image/test4_o_f.png}
-         \caption{Отладчик.}
+         \caption{Состояние в отладчике.}
      \end{subfigure}
         \caption{Выставленные параметры.}
 	\end{figure}
@@ -281,7 +281,7 @@
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../image/1875.bmp}
-    \caption{Синус 1875 Гц.}
+    \caption{Синусоидальный сигнал с частотой 1875 Гц.}
 	\end{figure}	
 	
 	Рассмотрим все формы сигналов на частоте 1 кГц.
@@ -289,31 +289,31 @@
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../image/sin1.bmp}
-    \caption{Синус 1 кГц.}
+    \caption{Синусоидальный сигнал с частотой 1 кГц.}
 	\end{figure}	
 	
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../image/square1.bmp}
-    \caption{Прямоугольник 1 кГц.}
+    \caption{Прямоугольный сигнал с частотой 1 кГц.}
 	\end{figure}	
 	
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../image/triangle1.bmp}
-    \caption{Треугольник 1 кГц.}
+    \caption{Треугольный сигнал с частотой 1 кГц.}
 	\end{figure}	
 
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../image/l_saw1.bmp}
-    \caption{Пила левая 1 кГц.}
+    \caption{Пилообразный сигнал с частотой 1 кГц.}
 	\end{figure}	
 	
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../image/r_saw1.bmp}
-    \caption{Пила правая 1 кГц.}
+    \caption{Обратный пилообразный сигнал с частотой 1 кГц.}
 	\end{figure}	
 	
 	Как можно заметить устройство генерирует все заданные формы сигналов. Рассмотрим более высокие частоты синуса.
@@ -321,7 +321,7 @@
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../image/sin10.bmp}
-    \caption{Синус 10 кГц.}
+    \caption{Синусоидальный сигнал с частотой 10 кГц.}
 	\end{figure}	
 	
 	На 10 кГц уже можно наблюдать, что отсчёты сигнала не такие ровные. На 50 кГц синусоиду уже трудно узнать. На её период приходится 8 отсчётов.
@@ -329,7 +329,7 @@
 	\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../image/sin50.bmp}
-    \caption{Синус 50 кГц.}
+    \caption{Синусоидальный сигнал с частотой 50 кГц.}
 	\end{figure}	
 	
 	Исходя из этого можно сделать вывод, что присутствует шум цифро-аналогового преобразователя. 

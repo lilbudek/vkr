@@ -1,0 +1,289 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{minted}
+\usepackage{subcaption}
+\setbeamertemplate{navigation symbols}{} %отключение значков
+\setbeamertemplate{caption}[numbered]
+\usetheme{Warsaw}
+\setbeamertemplate{footline}{%
+    \hspace{0.94\paperwidth}%
+    \usebeamerfont{title in head/foot}%
+    \insertframenumber\,/\,\inserttotalframenumber%
+}
+\newcommand{\pdiff}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\op}[1]{\mathop{\mathrm{#1}}}
+\graphicspath{{pictures/}}
+\begin{document}
+
+\title{Программный генератор сигналов на основе микроконтроллера STM32}
+\author{Студент гр. 506: Вебер Д.С.\\Руководитель:  ст.пр. Уланов П.Н.}
+\date{2024}
+\institute{Алтайский государственный университет}
+
+
+\frame{\titlepage}
+
+\begin{frame}{Актуальность}
+  \begin{figure}
+  \includegraphics[width=0.6\textwidth]{actual1}
+  %\caption{Таблица отсчётов.}
+  \end{figure}
+  
+  \begin{figure}
+  \includegraphics[width=0.6\textwidth]{actual2}
+  %\caption{Таблица отсчётов.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Цель и задачи}
+  \textbf{Цель} выпускной квалификационной работы состоит в разработке программного генератора сигналов на микроконтроллере.
+
+  \textbf{Задачи:} 
+	\begin{enumerate}
+		\item Исследовать методы генерации сигналов и осуществить выбор;
+		\item Рассмотреть семейства микроконтроллеров и осуществить выбор;
+		\item Выбрать среду разработки;
+		\item Разработать программу;
+		\item Спроектировать устройство;
+		\item Протестировать генератор.
+	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Методы цифровой генерации сигнала}
+  \begin{enumerate}
+		\item Метод аппроксимации. 
+		
+		+: Малый объем памяти, так как хранятся только параметры сигнала. 
+		
+		---: Высокие вычислительные затраты, что ограничивает максимальную частоту сигнала.
+		
+		\item CORDIC.
+		
+		+: Быстродействие и высокая точность системы благодаря итерационному методу.
+		
+		---: Сложность алгоритма и потребность в специализированных вычислениях.
+		
+		\item Табличный метод.
+		
+		+: Возможность генерации сигналов с более высокой частотой из-за отсутствия вычислений.
+		
+		---: Необходимость хранения больших объёмов данных в памяти.
+		
+		\item Метод DDS.
+		
+		+: Гибкость, простота реализации и высокая точность регулирования частоты.
+		
+		---: Потребность в дополнительных вычислениях для генерации сигнала.
+  \end{enumerate}
+\end{frame}
+
+%\begin{frame}{Моделирование DDS}
+%  \begin{figure}
+%  \includegraphics[width=0.3\textwidth]{dds_block}
+%  \caption{Алгоритм метода DDS.}
+%  \end{figure}
+%\end{frame}
+
+
+%\begin{frame}{Моделирование DDS}
+%  \begin{figure}
+%  \includegraphics[width=0.9\textwidth]{tab_sin}
+%  \caption{Синтез синусоиды табличным методом.}
+%  \end{figure}
+%\end{frame}
+%
+%\begin{frame}{Моделирование DDS}
+%  \begin{figure}
+%  \includegraphics[width=0.9\textwidth]{tab_sin_s}
+%  \caption{Увеличение частоты сигнала.}
+%  \end{figure}
+%\end{frame}
+
+
+%\begin{frame}[containsverbatim]{Моделирование DDS}
+%	Для адресации используется аккумулятор фазы и код частоты. 
+%	
+%	Старшая часть аккумулятора фазы отвечает за адресацию ячейки в таблице отсчётов, а младшая за шаг в этой таблице. Размером же шага является код частоты.
+%
+%	Аккумулятор фазы + Код частоты = Адрес отсчёта 
+%	
+%	0x0000 + 0x0100 = 0x0100
+%
+%	0x0000 + 0x0200 = 0x0200
+%	
+%	0x0000 + 0x0080 + 0x0080 = 0x0100
+%		
+%\end{frame}
+
+\begin{frame}{Микроконтроллеры}
+\begin{small}
+\begin{table}[H]
+\caption{Параметры микроконтроллеров}
+\begin{tabular}{|p{1.5 cm}|p{1.9 cm}|p{1.9 cm}|p{1.9 cm}|p{1.9 cm}|}
+\hline
+        Параметр & ATtiny10 & ATmega32 & STM32L010F4 & STM32F103xC \\ \hline
+        Частота & 20 МГц & 20 МГц & 32 МГц & 72 МГц \\ \hline
+        FLASH & 1 Кбайт & 32 Кбайт & 16 Кбайт & 256 Кбайт \\ \hline
+        RAM & 64 байт & 2 Кбайт & 2 Кбайт & 48 Кбайт \\ \hline
+        SPI & - & + & + & + \\ \hline
+        I2C & - & +	 & + & + \\ \hline
+        Питание & 1,8 --- 5,5 В & 1,8 --- 5,5 В & 1,8 --- 3,6 В & 1,8 --- 3,6 В \\ \hline
+\end{tabular}
+\end{table}
+\end{small}
+\end{frame}
+
+\begin{frame}{Выбор микроконтроллера и среды разработки}
+\begin{figure}
+     \begin{subfigure}[H]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{stmka}
+         %\caption{Расположение периферии}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.35\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{PlatformIO}
+         %\caption{Плата периферии}
+     \end{subfigure}
+        %\caption{Макет.}
+\end{figure}
+  Микроконтроллер: STM32F103RCT6 на отладочной плате.
+  
+  Среда разработки: VSCode + PlatformIO.
+  
+  Язык программирования: C.
+  
+  Библиотека: libopencm3.
+\end{frame}
+
+
+\begin{frame}{Программа для генерации сигналов}
+  \begin{figure}
+  \includegraphics[width=1\textwidth]{struct_gen}
+  \caption{Структурная схема генератора сигналов.}
+  \end{figure}
+  Программа должна выполнять три действия:
+  	\begin{enumerate}
+		\item Вывод отсчёта в ЦАП;
+		\item Обработка кнопок;
+		\item Вывод информации на дисплей.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Программа для генерации сигналов}
+  \begin{figure}
+  \includegraphics[width=0.4\textwidth]{dac}
+  \caption{Блок-схема алгоритма вывода отсчёта в ЦАП.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Программа для генерации сигналов}
+  \begin{figure}
+  \includegraphics[width=0.225\textwidth]{buttons}
+  \caption{Блок-схема алгоритма обработки кнопок.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Программа для генерации сигналов}
+  \begin{figure}
+  \includegraphics[width=0.275\textwidth]{main}
+  \caption{Блок-схема алгоритма главной функции.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Программа для генерации сигналов}
+  \begin{figure}
+  \includegraphics[width=1.05\textwidth]{compile}
+  \caption{Компиляция проекта.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Проектирование генератора сигналов}
+  \begin{figure}
+  \includegraphics[width=0.75\textwidth]{scheme-cropped}
+  \caption{Фрагмент схемы электрической принципиальной.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Проектирование генератора сигналов}
+\begin{figure}
+     \begin{subfigure}[H]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{func_gen}
+         \caption{Схема расположения периферии}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{m1}
+         \caption{Полученная плата периферии}
+     \end{subfigure}
+        \caption{Конструирование платы периферии.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Проектирование генератора сигналов}
+  \begin{figure}
+  \includegraphics[width=0.75\textwidth]{m2}
+  \caption{Прототип устройства.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Тестирование}
+\begin{figure}
+     \begin{subfigure}[H]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{test4_u_f}
+         \caption{Состояние устройства.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{test4_o_f}
+         \caption{Состояние в отладчике.}
+     \end{subfigure}
+        \caption{Работа устройства.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Тестирование}
+  \begin{figure}
+  \includegraphics[width=1\textwidth]{1875}
+  \caption{Синусоидальный сигнал с частотой 1875 Гц.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Заключение}
+
+	В ходе выполнения работы цель была достигнута: разработан программный генератор сигналов на микроконтроллере STM32F103RCT6, позволяющий генерировать сигналы разной формы.
+	
+	Были выполнены все поставленные задачи, а именно:
+	\begin{enumerate}
+		\item Выбран метод генерации сигналов;
+		\item Выбран микроконтроллер;
+		\item Выбрана среда разработки;
+		\item Разработана программа;
+		\item Спроектировано устройство;
+		\item Протестирован генератор.
+	\end{enumerate}
+	
+	
+	
+
+\end{frame}
+
+\begin{frame}
+\begin{center}
+{\Huge Спасибо за внимание! }
+\end{center}
+\end{frame}
+
+\end{document}

@@ -420,13 +420,13 @@
     РЕФЕРАТ
   \end{center}
   
-  Объем работы листов \hfill \@countWorkPage
+  Объем работы листов \hfill 67%\@countWorkPage
     
-  Количество рисунков \hfill \@countWorkImg
+  Количество рисунков \hfill 50%\@countWorkImg
     
-  Количество используемых источников \hfill \@countWorkLit
+  Количество используемых источников \hfill 21%\@countWorkLit
     
-  Количество таблиц \hfill \@countWorkTab
+  Количество таблиц \hfill 4%\@countWorkTab
 
   {\MakeUppercase{\@keysRU}}.
   
