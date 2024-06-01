@@ -226,17 +226,14 @@ static void i2c\PYGZus{}setup(void)\PYGZob{}
     // Установка стандартного режима работы I2C
     i2c\PYGZus{}set\PYGZus{}standard\PYGZus{}mode(I2C2);
 
-    // Установка частоты тактового сигнала I2C на 16 МГц
-    i2c\PYGZus{}set\PYGZus{}clock\PYGZus{}frequency(I2C2, I2C\PYGZus{}CR2\PYGZus{}FREQ\PYGZus{}16MHZ);
+    // Установка частоты периферии
+    i2c\PYGZus{}set\PYGZus{}clock\PYGZus{}frequency(I2C2, I2C\PYGZus{}CR2\PYGZus{}FREQ\PYGZus{}36MHZ);
 
-    // Настройка параметров управления текущим циклом (CCR) для I2C2
-    i2c\PYGZus{}set\PYGZus{}ccr(I2C2, 0xAA);
-
-    // Установка коэффициента дутисцикла (Duty Cycle) для I2C2
-    i2c\PYGZus{}set\PYGZus{}dutycycle(I2C2, I2C\PYGZus{}CCR\PYGZus{}DUTY\PYGZus{}DIV2);
+    // Настройка тактовой частоты шины;
+    i2c\PYGZus{}set\PYGZus{}ccr(I2C2, 0xB4);
 
     // Установка времени подъема сигнала SDA после завершения операции чтения/записи
-    i2c\PYGZus{}set\PYGZus{}trise(I2C2, 0x11);
+    i2c\PYGZus{}set\PYGZus{}trise(I2C2, 0x25);
 
     // Включение подтверждения при получении данных от устройства
     i2c\PYGZus{}enable\PYGZus{}ack(I2C2);
@@ -252,16 +249,16 @@ static void timers\PYGZus{}setup(void)
     rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}TIM3);
 
     /* Стартовое значение таймера */
-    TIM\PYGZus{}CNT(TIM2) = 1;
-    TIM\PYGZus{}CNT(TIM3) = 1;
+    TIM\PYGZus{}CNT(TIM2) = 0;
+    TIM\PYGZus{}CNT(TIM3) = 0;
 
-    /* Предделитель 36MHz/36000 =\PYGZgt{} 1000 отсчетов в секунду */
-    TIM\PYGZus{}PSC(TIM2) = 18;
-    TIM\PYGZus{}PSC(TIM3) = 36000;
+    /* Предделитель 36MHz/36000 =\PYGZgt{} 1000 отсчетов в секунду (счет начинается с 0, поэтому в предделителе и периоде нужно отнимать единичку) */
+    TIM\PYGZus{}PSC(TIM2) = 17;
+    TIM\PYGZus{}PSC(TIM3) = 35999;
 
     /* Период таймера */
-    TIM\PYGZus{}ARR(TIM2) = 10;
-    TIM\PYGZus{}ARR(TIM3) = 250;
+    TIM\PYGZus{}ARR(TIM2) = 9;
+    TIM\PYGZus{}ARR(TIM3) = 249;
 
     /* Включить прерывания */
     TIM\PYGZus{}DIER(TIM2) |= TIM\PYGZus{}DIER\PYGZus{}UIE;

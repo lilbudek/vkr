@@ -20,14 +20,26 @@ int main(void)
         ssd1306\PYGZus{}drawWCharStr(0, 0, white, nowrap, L\PYGZdq{}Форма сигнала:\PYGZdq{});
         switch (num\PYGZus{}sig)
         \PYGZob{}
-        ...
+        case 1:
+            ssd1306\PYGZus{}drawWCharStr(0, 8, white, nowrap, L\PYGZdq{}Синус\PYGZdq{});
+            break;
+       \PYGZca{}\PYGZca{}I...
+        case 5:
+            ssd1306\PYGZus{}drawWCharStr(0, 8, white, nowrap, L\PYGZdq{}Пила Правая\PYGZdq{});
+            break;
         \PYGZcb{}
         ssd1306\PYGZus{}drawWCharStr(0, 16, white, nowrap, L\PYGZdq{}Частота(Гц)\PYGZdq{});
         ssd1306\PYGZus{}drawWCharStr(64, 16, white, nowrap, freq);
         ssd1306\PYGZus{}drawWCharStr(0, 32, white, nowrap, L\PYGZdq{}Шаг(Гц)\PYGZdq{});
         switch (num\PYGZus{}step)
         \PYGZob{}
+        case 1:
+            ssd1306\PYGZus{}drawWCharStr(64, 32, white, nowrap, L\PYGZdq{}125\PYGZdq{});
+            break;
         ...
+        case 4:
+            ssd1306\PYGZus{}drawWCharStr(64, 32, white, nowrap, L\PYGZdq{}1000\PYGZdq{});
+            break;
         \PYGZcb{}
         ssd1306\PYGZus{}refresh();
     \PYGZcb{}

@@ -42,7 +42,7 @@
 \end{frame}
 
 \begin{frame}{Цель и задачи}
-  \textbf{Цель} выпускной квалификационной работы состоит в разработке программного генератора сигналов на микроконтроллере.
+  \textbf{Цель:} разработка программного генератора сигналов на микроконтроллере.
 
   \textbf{Задачи:} 
 	\begin{enumerate}
@@ -66,7 +66,7 @@
 		
 		\item CORDIC.
 		
-		+: Быстродействие и высокая точность системы благодаря итерационному методу.
+		+: Быстродействие и высокая точность системы, благодаря итерационному методу.
 		
 		---: Сложность алгоритма и потребность в специализированных вычислениях.
 		
@@ -84,43 +84,27 @@
   \end{enumerate}
 \end{frame}
 
-%\begin{frame}{Моделирование DDS}
-%  \begin{figure}
-%  \includegraphics[width=0.3\textwidth]{dds_block}
-%  \caption{Алгоритм метода DDS.}
-%  \end{figure}
-%\end{frame}
+\begin{frame}{Моделирование DDS}
+  \begin{figure}
+  \includegraphics[width=0.3\textwidth]{dds_block}
+  \caption{Алгоритм метода DDS.}
+  \end{figure}
+\end{frame}
 
+\begin{frame}[containsverbatim]{Моделирование DDS}
+	Для адресации используется аккумулятор фазы и код частоты. 
+	
+	Старшая часть аккумулятора фазы отвечает за адресацию ячейки в таблице отсчётов, а младшая за шаг в этой таблице. Размером же шага является код частоты.
 
-%\begin{frame}{Моделирование DDS}
-%  \begin{figure}
-%  \includegraphics[width=0.9\textwidth]{tab_sin}
-%  \caption{Синтез синусоиды табличным методом.}
-%  \end{figure}
-%\end{frame}
-%
-%\begin{frame}{Моделирование DDS}
-%  \begin{figure}
-%  \includegraphics[width=0.9\textwidth]{tab_sin_s}
-%  \caption{Увеличение частоты сигнала.}
-%  \end{figure}
-%\end{frame}
+	Аккумулятор фазы + Код частоты = Адрес отсчёта 
+	
+	0x0000 + 0x0100 = 0x0100
 
-
-%\begin{frame}[containsverbatim]{Моделирование DDS}
-%	Для адресации используется аккумулятор фазы и код частоты. 
-%	
-%	Старшая часть аккумулятора фазы отвечает за адресацию ячейки в таблице отсчётов, а младшая за шаг в этой таблице. Размером же шага является код частоты.
-%
-%	Аккумулятор фазы + Код частоты = Адрес отсчёта 
-%	
-%	0x0000 + 0x0100 = 0x0100
-%
-%	0x0000 + 0x0200 = 0x0200
-%	
-%	0x0000 + 0x0080 + 0x0080 = 0x0100
-%		
-%\end{frame}
+	0x0000 + 0x0200 = 0x0200
+	
+	0x0000 + 0x0080 + 0x0080 = 0x0100
+		
+\end{frame}
 
 \begin{frame}{Микроконтроллеры}
 \begin{small}
@@ -192,6 +176,37 @@
   \end{figure}
 \end{frame}
 
+\begin{frame}{Проектирование генератора сигналов}
+\begin{figure}
+     \begin{subfigure}[H]{0.425\textwidth}
+         \centering
+         \includegraphics[width=1.3\textwidth]{minus_freq}
+         \caption{Блок-схема алгоритма уменьшения частоты.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.425\textwidth}
+         \centering
+         \includegraphics[width=1.3\textwidth]{plus_freq}
+         \caption{Блок-схема алгоритма увеличения частоты.}
+     \end{subfigure}
+        \caption{Блок-схемы алгоритмов регулировки частоты.}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Программа для генерации сигналов}
+  \begin{figure}
+  \includegraphics[width=0.55\textwidth]{plus_signal}
+  \caption{Блок-схема алгоритма выбора следующего сигнала.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Программа для генерации сигналов}
+  \begin{figure}
+  \includegraphics[width=0.675\textwidth]{step_select}
+  \caption{Блок-схема алгоритма выбора шага.}
+  \end{figure}
+\end{frame}
+
 \begin{frame}{Программа для генерации сигналов}
   \begin{figure}
   \includegraphics[width=0.275\textwidth]{main}
@@ -201,8 +216,8 @@
 
 \begin{frame}{Программа для генерации сигналов}
   \begin{figure}
-  \includegraphics[width=1.05\textwidth]{compile}
-  \caption{Компиляция проекта.}
+  \includegraphics[width=0.625\textwidth]{display}
+  \caption{Блок-схема алгоритма работы дисплея.}
   \end{figure}
 \end{frame}
 

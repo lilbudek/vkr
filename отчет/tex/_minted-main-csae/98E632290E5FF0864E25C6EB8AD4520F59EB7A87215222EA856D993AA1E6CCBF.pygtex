@@ -1,0 +1,55 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+static void gpio\PYGZus{}setup(void)
+\PYGZob{}
+    // rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}GPIOD); // тактирование портов
+    rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}GPIOB);
+    gpio\PYGZus{}set\PYGZus{}mode(GPIOB, GPIO\PYGZus{}MODE\PYGZus{}INPUT, GPIO\PYGZus{}CNF\PYGZus{}INPUT\PYGZus{}PULL\PYGZus{}UPDOWN, GPIO9 | GPIO5 | GPIO6 | GPIO7 | GPIO8); // входы для кнопок, подтянуты к земле
+    // gpio\PYGZus{}set\PYGZus{}mode(GPIOD, GPIO\PYGZus{}MODE\PYGZus{}OUTPUT\PYGZus{}50\PYGZus{}MHZ, GPIO\PYGZus{}CNF\PYGZus{}OUTPUT\PYGZus{}PUSHPULL, GPIO2);
+\PYGZcb{}
+
+static void dac\PYGZus{}setup(void)
+\PYGZob{}
+    rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}GPIOA);
+    gpio\PYGZus{}set\PYGZus{}mode(GPIOA, GPIO\PYGZus{}MODE\PYGZus{}OUTPUT\PYGZus{}2\PYGZus{}MHZ, GPIO\PYGZus{}CNF\PYGZus{}OUTPUT\PYGZus{}ALTFN\PYGZus{}PUSHPULL, GPIO5);
+    rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}DAC); // тактирование цапа и настройка вывода
+    dac\PYGZus{}enable(CHANNEL\PYGZus{}2);            // включить цап
+\PYGZcb{}
+
+static void i2c\PYGZus{}setup(void)\PYGZob{}
+    // Включение тактирования периферийного оборудования для I2C2
+    rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}I2C2);
+
+    /*
+     * Настройка альтернативных функций для пинов SCL и SDA интерфейса I2C2.
+     * Это необходимо для подключения I2C устройств к микроконтроллеру через эти
+ пины.
+     */
+    gpio\PYGZus{}set\PYGZus{}mode(GPIOB, GPIO\PYGZus{}MODE\PYGZus{}OUTPUT\PYGZus{}50\PYGZus{}MHZ,
+                  GPIO\PYGZus{}CNF\PYGZus{}OUTPUT\PYGZus{}ALTFN\PYGZus{}OPENDRAIN,
+                  GPIO\PYGZus{}I2C2\PYGZus{}SCL | GPIO\PYGZus{}I2C2\PYGZus{}SDA);
+
+    // Отключение I2C перед изменением конфигурации
+    i2c\PYGZus{}peripheral\PYGZus{}disable(I2C2);
+
+    // Сброс состояния периферийного устройства I2C2
+    i2c\PYGZus{}reset(I2C2);
+
+    // Установка стандартного режима работы I2C
+    i2c\PYGZus{}set\PYGZus{}standard\PYGZus{}mode(I2C2);
+
+    // Установка частоты периферии
+    i2c\PYGZus{}set\PYGZus{}clock\PYGZus{}frequency(I2C2, I2C\PYGZus{}CR2\PYGZus{}FREQ\PYGZus{}36MHZ);
+
+    // Настройка тактовой частоты шины;
+    i2c\PYGZus{}set\PYGZus{}ccr(I2C2, 0xB4);
+
+    // Установка времени подъема сигнала SDA после завершения операции чтения/записи
+    i2c\PYGZus{}set\PYGZus{}trise(I2C2, 0x25);
+
+    // Включение подтверждения при получении данных от устройства
+    i2c\PYGZus{}enable\PYGZus{}ack(I2C2);
+
+    // Включение периферийного устройства I2C2
+    i2c\PYGZus{}peripheral\PYGZus{}enable(I2C2);
+\PYGZcb{}
+\end{Verbatim}

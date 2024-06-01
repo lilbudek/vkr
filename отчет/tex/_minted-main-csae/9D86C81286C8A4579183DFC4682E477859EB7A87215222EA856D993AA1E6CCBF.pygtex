@@ -1,0 +1,37 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+static void timers\PYGZus{}setup(void)
+\PYGZob{}
+    rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}TIM2);
+    rcc\PYGZus{}periph\PYGZus{}clock\PYGZus{}enable(RCC\PYGZus{}TIM3);
+
+    /* Стартовое значение таймера */
+    TIM\PYGZus{}CNT(TIM2) = 1;
+    TIM\PYGZus{}CNT(TIM3) = 1;
+
+    /* Предделитель 36MHz/36000 =\PYGZgt{} 1000 отсчетов в секунду */
+    TIM\PYGZus{}PSC(TIM2) = 18;
+    TIM\PYGZus{}PSC(TIM3) = 36000;
+
+    /* Период таймера */
+    TIM\PYGZus{}ARR(TIM2) = 10;
+    TIM\PYGZus{}ARR(TIM3) = 250;
+
+    /* Включить прерывания */
+    TIM\PYGZus{}DIER(TIM2) |= TIM\PYGZus{}DIER\PYGZus{}UIE;
+    TIM\PYGZus{}DIER(TIM3) |= TIM\PYGZus{}DIER\PYGZus{}UIE;
+
+    /* Запустить таймер */
+    TIM\PYGZus{}CR1(TIM2) |= TIM\PYGZus{}CR1\PYGZus{}CEN;
+    TIM\PYGZus{}CR1(TIM3) |= TIM\PYGZus{}CR1\PYGZus{}CEN;
+\PYGZcb{}
+
+static void nvic\PYGZus{}setup(void)
+\PYGZob{}
+    /* Активировать прерывания и установить приоритеты */
+    nvic\PYGZus{}enable\PYGZus{}irq(NVIC\PYGZus{}TIM2\PYGZus{}IRQ);
+    nvic\PYGZus{}set\PYGZus{}priority(NVIC\PYGZus{}TIM2\PYGZus{}IRQ, 2);
+
+    nvic\PYGZus{}enable\PYGZus{}irq(NVIC\PYGZus{}TIM3\PYGZus{}IRQ);
+    nvic\PYGZus{}set\PYGZus{}priority(NVIC\PYGZus{}TIM3\PYGZus{}IRQ, 1);
+\PYGZcb{}
+\end{Verbatim}
