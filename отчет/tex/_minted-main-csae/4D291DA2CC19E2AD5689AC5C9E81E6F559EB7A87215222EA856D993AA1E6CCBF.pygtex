@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+fft\PYGZus{}ideal = abs(fft(ideal\PYGZus{}sin)/25000);
+data\PYGZus{}sig = sig(:, 2);
+fft\PYGZus{}sig = abs(fft(data\PYGZus{}sig)/25000);
+ff=linspace(0,24999/25000*1/Td, 1/Td/25000);
+ff=ff.\PYGZsq{}
+
+output\PYGZus{}data\PYGZus{}fft = zeros(length(fft\PYGZus{}ideal), 2);
+output\PYGZus{}data\PYGZus{}fft(:, 1) = fft\PYGZus{}ideal;
+output\PYGZus{}data\PYGZus{}fft(:, 2) = fft\PYGZus{}sig;
+
+csvwrite(\PYGZsq{}fft.CSV\PYGZsq{}, output\PYGZus{}data\PYGZus{}fft);
+csvwrite(\PYGZsq{}ff.CSV\PYGZsq{}, ff);
+\end{Verbatim}

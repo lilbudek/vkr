@@ -420,11 +420,11 @@
     РЕФЕРАТ
   \end{center}
   
-  Объем работы листов \hfill 67%\@countWorkPage
+  Объем работы листов \hfill 77%\@countWorkPage
     
-  Количество рисунков \hfill 50%\@countWorkImg
+  Количество рисунков \hfill 54%\@countWorkImg
     
-  Количество используемых источников \hfill 21%\@countWorkLit
+  Количество используемых источников \hfill 37%\@countWorkLit
     
   Количество таблиц \hfill 4%\@countWorkTab
 

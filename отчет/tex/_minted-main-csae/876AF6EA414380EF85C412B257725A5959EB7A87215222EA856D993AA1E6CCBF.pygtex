@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+clear all
+sig = csvread(\PYGZsq{}data.csv\PYGZsq{}); \PYGZpc{} сигнал с осциллографа
+Td = sig(2,1)\PYGZhy{}sig(1,1); \PYGZpc{} период дискретизаци
+t=linspace(0, 24999*Td, 25000); \PYGZpc{} интервал времени для идеального сигнала
+f = 1000; \PYGZpc{} частота идеального сигнала
+ideal\PYGZus{}sin = \PYGZhy{}2.9 / 2 * sin(2 * pi * f * t) + 3.3 / 2 + 0.05; \PYGZpc{} идеальный сигнал
+ideal\PYGZus{}sin=ideal\PYGZus{}sin.\PYGZsq{};
+plot(t, sig(:,2), \PYGZsq{}LineWidth\PYGZsq{}, 0.5)
+hold on;
+plot(t, ideal\PYGZus{}sin, \PYGZsq{}LineWidth\PYGZsq{}, 2)
+xlabel(\PYGZsq{}Время (с)\PYGZsq{});
+ylabel(\PYGZsq{}Напряжение (В)\PYGZsq{});
+\end{Verbatim}
