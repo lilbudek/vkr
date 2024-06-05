@@ -136,18 +136,18 @@
 	\item signal --- буфер сигнала.
 	\end{itemize}		
 	
-	После запуска устройства на экране появляются строки с пустыми параметрами формы сигнала, частоты и шага. 
+	После запуска устройства на экране появляются строки с пустыми параметрами формы сигнала, частоты и шага (рис. 3.7). 
 
 	\begin{figure}[H]\captionsetup[subfigure]{font=normalsize}
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.8\textwidth]{../image/test0_u_s.jpg}
+         \includegraphics[width=0.6\textwidth]{../image/test0_u_s.jpg}
          \caption{Состояние устройства.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.725\textwidth]{../image/test0_o_s.png}
+         \includegraphics[width=0.525\textwidth]{../image/test0_o_s.png}
          \caption{Состояние в отладчике.}
      \end{subfigure}
         \caption{Начальное состояние устройства при запуске.}
@@ -157,7 +157,7 @@
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../image/display.pdf}
+    \includegraphics[width=0.775\textwidth]{../image/display.pdf}
     \caption{Блок-схема алгоритма работы дисплея.}
 	\end{figure}	
 	
@@ -165,7 +165,7 @@
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../image/plus_signal.pdf}
+    \includegraphics[width=0.8\textwidth]{../image/plus_signal.pdf}
     \caption{Блок-схема алгоритма выбора следующего сигнала.}
 	\end{figure}	
 	
@@ -173,23 +173,23 @@
 	\begin{figure}[H]\captionsetup[subfigure]{font=normalsize}
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.9\textwidth]{../image/test1_u_s.jpg}
+         \includegraphics[width=0.6\textwidth]{../image/test1_u_s.jpg}
          \caption{Состояние устройства.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.8\textwidth]{../image/test1_o_s.png}
+         \includegraphics[width=0.525\textwidth]{../image/test1_o_s.png}
          \caption{Состояние в отладчике.}
      \end{subfigure}
         \caption{Процедура выбора синусоидального сигнала.}
 	\end{figure}
-	
+
 	Теперь нужно выбрать величину шага, с которым будет регулироваться частота сигнала. Алгоритм для установки шага следующий (рис. 3.16).
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../image/step_select.pdf}
+    \includegraphics[width=0.8\textwidth]{../image/step_select.pdf}
     \caption{Блок-схема алгоритма выбора шага.}
 	\end{figure}	
 	
@@ -206,18 +206,17 @@
 	\begin{figure}[H]\captionsetup[subfigure]{font=normalsize}
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.9\textwidth]{../image/test1_u_st.jpg}
+         \includegraphics[width=0.8\textwidth]{../image/test1_u_st.jpg}
          \caption{Состояние устройства.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.8\textwidth]{../image/test1_o_st.png}
+         \includegraphics[width=0.725\textwidth]{../image/test1_o_st.png}
          \caption{Состояние в отладчике.}
      \end{subfigure}
         \caption{Процедура выбора шага частотой 125 Гц.}
 	\end{figure}
-	
 	
 	Выбор шага происходит циклично, поэтому для него требуется только одна кнопка. Самим же шагом по частоте является переменная step, которая содержит в себе для микроконтроллера код частоты, соответствующий частотам генерируемого сигнала.
 	
@@ -243,13 +242,13 @@
 	\begin{figure}[H]\captionsetup[subfigure]{font=normalsize}
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.9\textwidth]{../image/test4_u_f.jpg}
+         \includegraphics[width=0.7\textwidth]{../image/test4_u_f.jpg}
          \caption{Состояние устройства.}
     	\end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
-         \includegraphics[width=0.8\textwidth]{../image/test4_o_f.png}
+         \includegraphics[width=0.62\textwidth]{../image/test4_o_f.png}
          \caption{Состояние в отладчике.}
      \end{subfigure}
         \caption{Выставленные параметры.}

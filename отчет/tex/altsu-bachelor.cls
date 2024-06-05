@@ -246,7 +246,9 @@
 \RequirePackage{csquotes}
 \RequirePackage{epigraph}
 \RequirePackage{enumitem} %https://tex.stackexchange.com/questions/6081/reduce-space-between-enumerated-items
-\setlist{nolistsep}
+
+
+\setlist{nolistsep,labelindent=\parindent, leftmargin=*}
 
 \RequirePackage[
   backend=biber, 
@@ -422,11 +424,11 @@
   
   Объем работы листов \hfill 77%\@countWorkPage
     
-  Количество рисунков \hfill 54%\@countWorkImg
+  Количество рисунков \hfill 52%\@countWorkImg
     
   Количество используемых источников \hfill 37%\@countWorkLit
     
-  Количество таблиц \hfill 4%\@countWorkTab
+  Количество таблиц \hfill 6%\@countWorkTab
 
   {\MakeUppercase{\@keysRU}}.
   

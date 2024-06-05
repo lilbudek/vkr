@@ -370,21 +370,42 @@ void tim2_isr(void) // обработчик прерывания таймера2
 	\item Запуск интерфейса I2C.
 	\end{enumerate}
 	
-	Стандартный режим работы I2C --- стандартная тактовая частота работы 100 кГц. Тактируется интерфейс также от шины APB1 --- 36 МГц. По спецификации микроконтроллера устанавливается частота шины~\cite{f103}.
+	Стандартный режим работы I2C --- стандартная тактовая частота работы 100 кГц. Тактируется интерфейс также от шины APB1 --- 36 МГц. 
+\begin{table}[H]
+\caption{Частота шины}
+\begin{tabular}{|p{4 cm}|p{4 cm}|}
+\hline
+$f_{SCL}$ (kHz)  & I2C\_CCR value \\ \hline
+400 & 0x801E \\ \hline
+300 & 0x802B \\ \hline
+200 & 0x803C \\ \hline
+100 & 0x00B4 \\ \hline
+50  & 0x0168 \\ \hline
+20  & 0x0384 \\ \hline
+\end{tabular}
+\end{table}
+	По спецификации микроконтроллера устанавливается частота шины (табл. 2.5)~\cite{f103}. Так как частота тактирования 36 МГц, то время цила будет $\dfrac{1}{36}=28$ нс. В характеристиках I2C стандартного режима указано время нарастания сигналов $t_{r}=300$ нс (табл. 2.6)~\cite{f103}.
 	
-	\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\textwidth]{../image/i2c_ccr.png}
-    \caption{Частота шины.}
-	\end{figure}
-	
-	Так как частота тактирования 36 МГц, то время цила будет $\dfrac{1}{36}=28$ нс. В характеристиках I2C указано время нарастания сигналов $t_{r}=300$ нс~\cite{f103}.
-	
-	\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\textwidth]{../image/i2c_rise.png}
-    \caption{Характеристики I2C.}
-	\end{figure}
+	\begin{table}[H]
+\caption{Характеристики I2C}
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+Symbol & Parameter & Min & Max & Unit \\ 
+\hline 
+$ t_{w(SCLL)} $ & SCL clow low time & 4.7 & - & $\mu s $ \\ 
+\hline 
+$ t_{w(SCLH)} $ & SCL clow high time & 4.0 & - & $\mu s$ \\ 
+\hline 
+$ t_{su(SDA)} $ & SDA setup time & 250 & - & $ns$ \\ 
+\hline 
+$ t_{h(SDA)} $ & SDA data hold time & - & 340 & $ns$ \\ 
+\hline 
+$ t_{r(SDA\&SCL)} $  & SDA and SCL rise time & - & 1000 & $ns$ \\ 
+\hline 
+$ t_{f(SDA\&SCL)} $ & SDA and SCL fall time & - & 300 & $ns$ \\ 
+\hline 
+\end{tabular}
+\end{table}
 	
 	По формуле рассчитаем нужное значение для установки времени нарастания~\cite{czssd1306}.
 	\begin{center}
@@ -451,11 +472,11 @@ static void i2c_setup(void){
 \end{code}
 	
 	
-	На рис. 2.12 представлена блок-схема алгоритма главной функции.
+	На рис. 2.10 представлена блок-схема алгоритма главной функции.
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=0.375\textwidth]{../image/main.pdf}
+    \includegraphics[width=0.36\textwidth]{../image/main.pdf}
     \caption{Блок-схема алгоритма главной функции.}
 	\end{figure}
 	
@@ -486,7 +507,7 @@ int main(void)
         case 1:
             ssd1306_drawWCharStr(0, 8, white, nowrap, L"Синус");
             break;
-       	...
+        ...
         case 5:
             ssd1306_drawWCharStr(0, 8, white, nowrap, L"Пила Правая");
             break;
@@ -512,11 +533,11 @@ int main(void)
 \end{minted}
 \end{code}
 	
-	Полный код программы содержится в приложении. После написания программы произведём сборку проекта и получим сообщение об успешной компиляции (рис. 2.13).
+	Полный код программы содержится в приложении. После написания программы произведём сборку проекта и получим сообщение об успешной компиляции (рис. 2.11).
 	
 	\begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{../image/compile.png}
+    \includegraphics[width=0.825\textwidth]{../image/compile.png}
     \caption{Компиляция проекта.}
 	\end{figure}
 	

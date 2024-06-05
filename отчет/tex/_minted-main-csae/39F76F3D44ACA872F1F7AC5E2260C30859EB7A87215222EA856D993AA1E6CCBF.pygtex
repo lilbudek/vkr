@@ -23,7 +23,7 @@ int main(void)
         case 1:
             ssd1306\PYGZus{}drawWCharStr(0, 8, white, nowrap, L\PYGZdq{}Синус\PYGZdq{});
             break;
-       \PYGZca{}\PYGZca{}I...
+        ...
         case 5:
             ssd1306\PYGZus{}drawWCharStr(0, 8, white, nowrap, L\PYGZdq{}Пила Правая\PYGZdq{});
             break;
