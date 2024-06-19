@@ -7,6 +7,7 @@
 \usepackage{hyperref}
 \usepackage{caption}
 \usepackage{minted}
+\usepackage{wrapfig}
 \usepackage{subcaption}
 \setbeamertemplate{navigation symbols}{} %отключение значков
 \setbeamertemplate{caption}[numbered]
@@ -22,7 +23,7 @@
 \begin{document}
 
 \title{Программный генератор сигналов на основе микроконтроллера STM32}
-\author{Студент гр. 506: Вебер Д.С.\\Руководитель:  ст.пр. Уланов П.Н.}
+\author{Студент гр. 506: Вебер Данил Сергеевич\\Руководитель:  ст.пр. Уланов Пётр Николаевич}
 \date{2024}
 \institute{Алтайский государственный университет}
 
@@ -55,7 +56,6 @@
 	\end{enumerate}
 \end{frame}
 
-
 \begin{frame}{Методы цифровой генерации сигнала}
   \begin{enumerate}
 		\item Метод аппроксимации. 
@@ -84,26 +84,50 @@
   \end{enumerate}
 \end{frame}
 
-\begin{frame}{Моделирование DDS}
-  \begin{figure}
-  \includegraphics[width=0.3\textwidth]{dds_block}
-  \caption{Алгоритм метода DDS.}
-  \end{figure}
-\end{frame}
+\begin{frame}
+\frametitle{Метод DDS}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+  	Для адресации используется аккумулятор фазы и код частоты. 
+\vspace{0.25cm}
 
-\begin{frame}[containsverbatim]{Моделирование DDS}
-	Для адресации используется аккумулятор фазы и код частоты. 
-	
 	Старшая часть аккумулятора фазы отвечает за адресацию ячейки в таблице отсчётов, а младшая за шаг в этой таблице. Размером же шага является код частоты.
 
-	Аккумулятор фазы + Код частоты = Адрес отсчёта 
+\vspace{0.25cm}
+	Аккум. фазы + Код частоты = Адрес отсчёта 
 	
 	0x0000 + 0x0100 = 0x0100
 
 	0x0000 + 0x0200 = 0x0200
 	
 	0x0000 + 0x0080 + 0x0080 = 0x0100
-		
+\end{column}
+\begin{column}{0.45\textwidth}  
+    \begin{center}
+    \begin{figure}
+    \includegraphics[width=0.6\textwidth]{dds_block}
+     \caption{Алгоритм метода DDS.}
+    \end{figure}
+     \end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Существующие генераторы}
+\begin{figure}
+     \begin{subfigure}[H]{0.35\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{ad9833}
+         \caption{Модуль AD9833.}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.5\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{AWG-4112}
+         \caption{АКТАКОМ AWG-4112.}
+     \end{subfigure}
+        \caption{Генераторы сигналов.}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Микроконтроллеры}
@@ -178,15 +202,15 @@
 
 \begin{frame}{Проектирование генератора сигналов}
 \begin{figure}
-     \begin{subfigure}[H]{0.425\textwidth}
+     \begin{subfigure}[H]{0.495\textwidth}
          \centering
-         \includegraphics[width=1.3\textwidth]{minus_freq}
+         \includegraphics[width=1\textwidth]{minus_freq}
          \caption{Блок-схема алгоритма уменьшения частоты.}
      \end{subfigure}
      \hfill
-     \begin{subfigure}[H]{0.425\textwidth}
+     \begin{subfigure}[H]{0.495\textwidth}
          \centering
-         \includegraphics[width=1.3\textwidth]{plus_freq}
+         \includegraphics[width=1\textwidth]{plus_freq}
          \caption{Блок-схема алгоритма увеличения частоты.}
      \end{subfigure}
         \caption{Блок-схемы алгоритмов регулировки частоты.}
@@ -202,7 +226,7 @@
 
 \begin{frame}{Программа для генерации сигналов}
   \begin{figure}
-  \includegraphics[width=0.675\textwidth]{step_select}
+  \includegraphics[width=0.9\textwidth]{step_select}
   \caption{Блок-схема алгоритма выбора шага.}
   \end{figure}
 \end{frame}
@@ -216,7 +240,7 @@
 
 \begin{frame}{Программа для генерации сигналов}
   \begin{figure}
-  \includegraphics[width=0.625\textwidth]{display}
+  \includegraphics[width=0.8\textwidth]{display}
   \caption{Блок-схема алгоритма работы дисплея.}
   \end{figure}
 \end{frame}
@@ -248,7 +272,7 @@
 \begin{frame}{Проектирование генератора сигналов}
   \begin{figure}
   \includegraphics[width=0.75\textwidth]{m2}
-  \caption{Прототип устройства.}
+  \caption{Макет устройства.}
   \end{figure}
 \end{frame}
 
@@ -276,10 +300,25 @@
   \end{figure}
 \end{frame}
 
+\begin{frame}{Тестирование}
+  \begin{figure}
+  \includegraphics[width=0.95\textwidth]{test}
+  \caption{Сравнение записанного (синий) и идеального (оранжевый) сигналов.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}{Тестирование}
+  \begin{figure}
+  \includegraphics[width=1\textwidth]{fft}
+  \caption{Спектр сигнала.}
+  \end{figure}
+\end{frame}
+
 \begin{frame}{Заключение}
 
 	В ходе выполнения работы цель была достигнута: разработан программный генератор сигналов на микроконтроллере STM32F103RCT6, позволяющий генерировать сигналы разной формы.
 	
+\vspace{0.25cm}	
 	Были выполнены все поставленные задачи, а именно:
 	\begin{enumerate}
 		\item Выбран метод генерации сигналов;
