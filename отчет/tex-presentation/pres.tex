@@ -6,8 +6,6 @@
 \usepackage{multicol}
 \usepackage{hyperref}
 \usepackage{caption}
-\usepackage{minted}
-\usepackage{wrapfig}
 \usepackage{subcaption}
 \setbeamertemplate{navigation symbols}{} %отключение значков
 \setbeamertemplate{caption}[numbered]
@@ -31,14 +29,10 @@
 \frame{\titlepage}
 
 \begin{frame}{Актуальность}
-  \begin{figure}
-  \includegraphics[width=0.6\textwidth]{actual1}
-  %\caption{Таблица отсчётов.}
-  \end{figure}
   
   \begin{figure}
-  \includegraphics[width=0.6\textwidth]{actual2}
-  %\caption{Таблица отсчётов.}
+  \includegraphics[width=0.85\textwidth]{actual2}
+  \caption*{Тестирование и отладка устройства.}
   \end{figure}
 \end{frame}
 
@@ -106,7 +100,7 @@
     \begin{center}
     \begin{figure}
     \includegraphics[width=0.6\textwidth]{dds_block}
-     \caption{Алгоритм метода DDS.}
+     \caption*{Алгоритм метода DDS.}
     \end{figure}
      \end{center}
 \end{column}
@@ -118,22 +112,36 @@
      \begin{subfigure}[H]{0.35\textwidth}
          \centering
          \includegraphics[width=\textwidth]{ad9833}
-         \caption{Модуль AD9833.}
+         \caption*{Модуль AD9833.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=\textwidth]{AWG-4112}
-         \caption{АКТАКОМ AWG-4112.}
+         \caption*{АКТАКОМ AWG-4112.}
      \end{subfigure}
-        \caption{Генераторы сигналов.}
+        %\caption*{Генераторы сигналов.}
 \end{figure}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\vspace{0.3cm}
+
++: компактность, возможность интеграции с другими компонентами.
+
+---: необходимость в управляющем устройстве.
+\end{column}
+\begin{column}{0.5\textwidth}  
++: высокая точность, широкий диапазон частот.
+
+---: большие размеры, высокая стоимость.
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Микроконтроллеры}
 \begin{small}
 \begin{table}[H]
-\caption{Параметры микроконтроллеров}
+\caption*{Параметры микроконтроллеров}
 \begin{tabular}{|p{1.5 cm}|p{1.9 cm}|p{1.9 cm}|p{1.9 cm}|p{1.9 cm}|}
 \hline
         Параметр & ATtiny10 & ATmega32 & STM32L010F4 & STM32F103xC \\ \hline
@@ -150,18 +158,18 @@
 
 \begin{frame}{Выбор микроконтроллера и среды разработки}
 \begin{figure}
-     \begin{subfigure}[H]{0.45\textwidth}
+     \begin{subfigure}[H]{0.4\textwidth}
          \centering
          \includegraphics[width=\textwidth]{stmka}
-         %\caption{Расположение периферии}
+         \caption*{Микроконтроллер}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.35\textwidth}
          \centering
          \includegraphics[width=\textwidth]{PlatformIO}
-         %\caption{Плата периферии}
+         \caption*{IDE}
      \end{subfigure}
-        %\caption{Макет.}
+        %\caption*{Инструменты.}
 \end{figure}
   Микроконтроллер: STM32F103RCT6 на отладочной плате.
   
@@ -176,7 +184,7 @@
 \begin{frame}{Программа для генерации сигналов}
   \begin{figure}
   \includegraphics[width=1\textwidth]{struct_gen}
-  \caption{Структурная схема генератора сигналов.}
+  \caption*{Структурная схема генератора сигналов.}
   \end{figure}
   Программа должна выполнять три действия:
   	\begin{enumerate}
@@ -189,66 +197,28 @@
 \begin{frame}{Программа для генерации сигналов}
   \begin{figure}
   \includegraphics[width=0.4\textwidth]{dac}
-  \caption{Блок-схема алгоритма вывода отсчёта в ЦАП.}
+  \caption*{Блок-схема алгоритма вывода отсчёта в ЦАП (прерывание таймера 2).}
   \end{figure}
 \end{frame}
 
 \begin{frame}{Программа для генерации сигналов}
   \begin{figure}
-  \includegraphics[width=0.225\textwidth]{buttons}
-  \caption{Блок-схема алгоритма обработки кнопок.}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{Проектирование генератора сигналов}
-\begin{figure}
-     \begin{subfigure}[H]{0.495\textwidth}
-         \centering
-         \includegraphics[width=1\textwidth]{minus_freq}
-         \caption{Блок-схема алгоритма уменьшения частоты.}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[H]{0.495\textwidth}
-         \centering
-         \includegraphics[width=1\textwidth]{plus_freq}
-         \caption{Блок-схема алгоритма увеличения частоты.}
-     \end{subfigure}
-        \caption{Блок-схемы алгоритмов регулировки частоты.}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Программа для генерации сигналов}
-  \begin{figure}
-  \includegraphics[width=0.55\textwidth]{plus_signal}
-  \caption{Блок-схема алгоритма выбора следующего сигнала.}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{Программа для генерации сигналов}
-  \begin{figure}
-  \includegraphics[width=0.9\textwidth]{step_select}
-  \caption{Блок-схема алгоритма выбора шага.}
+  \includegraphics[width=0.23\textwidth]{buttons}
+  \caption*{Блок-схема алгоритма обработки кнопок (прерывание таймера 3).}
   \end{figure}
 \end{frame}
 
 \begin{frame}{Программа для генерации сигналов}
   \begin{figure}
   \includegraphics[width=0.275\textwidth]{main}
-  \caption{Блок-схема алгоритма главной функции.}
-  \end{figure}
-\end{frame}
-
-\begin{frame}{Программа для генерации сигналов}
-  \begin{figure}
-  \includegraphics[width=0.8\textwidth]{display}
-  \caption{Блок-схема алгоритма работы дисплея.}
+  \caption*{Блок-схема алгоритма главной функции.}
   \end{figure}
 \end{frame}
 
 \begin{frame}{Проектирование генератора сигналов}
   \begin{figure}
   \includegraphics[width=0.75\textwidth]{scheme-cropped}
-  \caption{Фрагмент схемы электрической принципиальной.}
+  \caption*{Фрагмент схемы электрической принципиальной.}
   \end{figure}
 \end{frame}
 
@@ -257,22 +227,22 @@
      \begin{subfigure}[H]{0.45\textwidth}
          \centering
          \includegraphics[width=\textwidth]{func_gen}
-         \caption{Схема расположения периферии}
+         \caption*{Схема расположения периферии}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.5\textwidth}
          \centering
          \includegraphics[width=\textwidth]{m1}
-         \caption{Полученная плата периферии}
+         \caption*{Полученная плата периферии}
      \end{subfigure}
-        \caption{Конструирование платы периферии.}
+        %\caption*{Конструирование платы периферии.}
 \end{figure}
 \end{frame}
 
 \begin{frame}{Проектирование генератора сигналов}
   \begin{figure}
   \includegraphics[width=0.75\textwidth]{m2}
-  \caption{Макет устройства.}
+  \caption*{Макет устройства.}
   \end{figure}
 \end{frame}
 
@@ -281,44 +251,77 @@
      \begin{subfigure}[H]{0.45\textwidth}
          \centering
          \includegraphics[width=\textwidth]{test4_u_f}
-         \caption{Состояние устройства.}
+         \caption*{Состояние устройства.}
      \end{subfigure}
      \hfill
      \begin{subfigure}[H]{0.45\textwidth}
          \centering
          \includegraphics[width=\textwidth]{test4_o_f}
-         \caption{Состояние в отладчике.}
+         \caption*{Состояние в отладчике.}
      \end{subfigure}
-        \caption{Работа устройства.}
+        %\caption*{Работа устройства.}
 \end{figure}
 \end{frame}
 
 \begin{frame}{Тестирование}
   \begin{figure}
   \includegraphics[width=1\textwidth]{1875}
-  \caption{Синусоидальный сигнал с частотой 1875 Гц.}
+  \caption*{Синусоидальный сигнал с частотой 1875 Гц.}
   \end{figure}
+\end{frame}
+
+\begin{frame}{Тестирование}
+\begin{figure}
+     \begin{subfigure}[H]{0.4\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{l_saw1}
+         \caption*{Обратная пилообразная}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.4\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{r_saw1}
+         \caption*{Пилообразная}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.4\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{triangle1}
+         \caption*{Треугольная}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[H]{0.4\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{square1}
+         \caption*{Прямоугольная}
+     \end{subfigure}
+        \caption*{Формы сигналов на частоте 1 кГц.}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Тестирование}
   \begin{figure}
   \includegraphics[width=0.95\textwidth]{test}
-  \caption{Сравнение записанного (синий) и идеального (оранжевый) сигналов.}
+  \caption*{Сравнение записанного (синий) и идеального (оранжевый) сигналов.}
   \end{figure}
 \end{frame}
 
 \begin{frame}{Тестирование}
   \begin{figure}
   \includegraphics[width=1\textwidth]{fft}
-  \caption{Спектр сигнала.}
+  \caption*{Спектр сигнала.}
   \end{figure}
 \end{frame}
 
 \begin{frame}{Заключение}
 
-	В ходе выполнения работы цель была достигнута: разработан программный генератор сигналов на микроконтроллере STM32F103RCT6, позволяющий генерировать сигналы разной формы.
-	
-\vspace{0.25cm}	
+	В ходе выполнения работы цель была достигнута: разработан программный генератор сигналов на микроконтроллере STM32F103RCT6, позволяющий генерировать сигналы разной формы со следующими характеристиками:
+	\begin{itemize}
+		\item Формы сигналов: синус, треугольник, прямоугольник, пилообразная, обратная пилообразная.
+		\item Частота сигнала: 125 --- 50000 Гц.
+		\item Шаг по частоте: 125, 250, 500, 1000 Гц.
+	\end{itemize}
+
 	Были выполнены все поставленные задачи, а именно:
 	\begin{enumerate}
 		\item Выбран метод генерации сигналов;
